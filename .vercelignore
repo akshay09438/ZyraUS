@@ -1,0 +1,8 @@
+public/videos/
+node_modules/
+.git/
+screenshots/
+docs/
+check-*.js
+debug*.js
+verify-*.js

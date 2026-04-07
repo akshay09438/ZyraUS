@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zyra V2 — Spec Review</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #0D1117;
+  color: #F5F5F0;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  line-height: 1.7;
+  padding: 0 0 80px;
+}
+
+/* Header */
+.doc-header {
+  background: #0D1117;
+  border-bottom: 1px solid #1F2937;
+  padding: 28px 40px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.doc-title { font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #F5F5F0; }
+.doc-meta { font-size: 11px; color: #4B5563; letter-spacing: 0.06em; }
+.status-badge { background: rgba(201, 168, 76, 0.15); color: #C9A84C; font-size: 10px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; padding: 4px 10px; border: 1px solid rgba(201,168,76,0.3); border-radius: 4px; }
+
+/* Layout */
+.doc-body { max-width: 860px; margin: 0 auto; padding: 48px 40px 0; }
+
+/* TOC */
+.toc {
+  background: #111827;
+  border: 1px solid #1F2937;
+  border-radius: 8px;
+  padding: 20px 24px;
+  margin-bottom: 48px;
+}
+.toc-title { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #4B5563; font-weight: 600; margin-bottom: 14px; }
+.toc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 24px; }
+.toc-item { font-size: 12px; color: #9BA3AF; padding: 3px 0; border-bottom: 1px solid #1F2937; display: flex; align-items: center; gap: 8px; }
+.toc-num { color: #4B5563; font-family: 'DM Mono', monospace; font-size: 10px; width: 20px; flex-shrink: 0; }
+.toc-item a { color: #9BA3AF; text-decoration: none; }
+.toc-item a:hover { color: #F5F5F0; }
+
+/* Sections */
+.section { margin-bottom: 48px; }
+.section-anchor { display: block; position: relative; top: -80px; visibility: hidden; }
+
+h2 {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #C9A84C;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #1F2937;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+h2 .h2-num { color: #4B5563; font-family: 'DM Mono', monospace; }
+
+/* Overview block */
+.overview {
+  background: #111827;
+  border-left: 3px solid #E8433F;
+  padding: 18px 20px;
+  border-radius: 0 6px 6px 0;
+  font-size: 14px;
+  color: #9BA3AF;
+  line-height: 1.7;
+  margin-bottom: 48px;
+}
+
+/* Not-changing list */
+.preserve-list {
+  background: rgba(45, 212, 191, 0.04);
+  border: 1px solid rgba(45,212,191,0.15);
+  border-radius: 6px;
+  padding: 16px 20px;
+}
+.preserve-list li { list-style: none; padding: 5px 0; font-size: 13px; color: #9BA3AF; display: flex; align-items: flex-start; gap: 10px; border-bottom: 1px solid rgba(45,212,191,0.07); }
+.preserve-list li:last-child { border-bottom: none; }
+.preserve-list li::before { content: '✓'; color: #2DD4BF; font-size: 11px; margin-top: 3px; flex-shrink: 0; }
+code { font-family: 'DM Mono', monospace; font-size: 11px; background: #1C2333; padding: 1px 5px; border-radius: 3px; color: #9BA3AF; }
+
+/* Color table */
+.color-table { width: 100%; border-collapse: collapse; }
+.color-table th { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: #4B5563; font-weight: 600; padding: 8px 12px; border-bottom: 1px solid #1F2937; text-align: left; }
+.color-table td { padding: 8px 12px; border-bottom: 1px solid #111827; font-size: 12px; color: #9BA3AF; vertical-align: middle; }
+.color-table tr:hover td { background: rgba(255,255,255,0.02); }
+.swatch { display: inline-block; width: 14px; height: 14px; border-radius: 3px; vertical-align: middle; margin-right: 6px; border: 1px solid rgba(255,255,255,0.08); }
+.new-badge { font-size: 9px; color: #C9A84C; background: rgba(201,168,76,0.1); padding: 1px 6px; border-radius: 10px; margin-left: 6px; }
+.arrow { color: #E8433F; margin: 0 6px; }
+
+/* Change list */
+.change-list { list-style: none; }
+.change-list li { padding: 6px 0; font-size: 13px; color: #9BA3AF; display: flex; align-items: flex-start; gap: 10px; border-bottom: 1px solid #111827; }
+.change-list li:last-child { border-bottom: none; }
+.change-list li::before { content: '→'; color: #E8433F; font-size: 11px; margin-top: 3px; flex-shrink: 0; font-family: 'DM Mono', monospace; }
+
+/* New badge for sections */
+.new-section-badge { background: rgba(232,67,63,0.12); color: #E8433F; font-size: 9px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; padding: 2px 8px; border-radius: 10px; }
+
+/* File path */
+.filepath { font-family: 'DM Mono', monospace; font-size: 11px; color: #4B5563; background: #111827; padding: 8px 14px; border-radius: 4px; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+.filepath::before { content: '📄'; font-size: 12px; }
+
+/* Rhythm table */
+.rhythm-table { width: 100%; border-collapse: collapse; }
+.rhythm-table td { padding: 8px 14px; font-size: 12px; font-family: 'DM Mono', monospace; border-bottom: 1px solid #111827; }
+.rhythm-swatch { width: 28px; height: 28px; border-radius: 4px; display: inline-block; border: 1px solid rgba(255,255,255,0.08); vertical-align: middle; margin-right: 8px; }
+.tag-dark  { color: #4B5563; font-size: 10px; background: #111827; padding: 2px 8px; border-radius: 10px; }
+.tag-light { color: #C9A84C; font-size: 10px; background: rgba(201,168,76,0.1); padding: 2px 8px; border-radius: 10px; }
+.tag-new   { color: #E8433F; font-size: 10px; background: rgba(232,67,63,0.1); padding: 2px 8px; border-radius: 10px; margin-left: 6px; }
+
+/* Copy block */
+.copy-block { background: #111827; border: 1px solid #1F2937; border-radius: 6px; padding: 14px 18px; font-family: 'DM Mono', monospace; font-size: 11px; color: #9BA3AF; line-height: 1.7; overflow-x: auto; }
+
+/* Assets block */
+.assets-note { background: #111827; border: 1px solid #1F2937; border-radius: 6px; padding: 16px 20px; font-size: 13px; color: #9BA3AF; }
+
+/* Out of scope */
+.oos-list { list-style: none; }
+.oos-list li { padding: 5px 0; font-size: 13px; color: #4B5563; display: flex; gap: 10px; }
+.oos-list li::before { content: '—'; color: #1F2937; }
+</style>
+</head>
+<body>
+
+<div class="doc-header">
+  <div>
+    <div class="doc-title">Zyra V2 Redesign — Spec</div>
+    <div class="doc-meta">2026-03-27 &nbsp;·&nbsp; docs/superpowers/specs/2026-03-27-zyra-v2-redesign.md</div>
+  </div>
+  <span class="status-badge">Approved</span>
+</div>
+
+<div class="doc-body">
+
+  <!-- Overview -->
+  <div class="overview">
+    Full visual redesign of the Zyra website homepage. Shifts from pure-black tech-company dark to deep cinematic blue-grey, with editorial typography, alternating dark/light section rhythm, and three new wow-moment sections. All SEO, metadata, and animation infrastructure is preserved.
+  </div>
+
+  <!-- TOC -->
+  <div class="toc">
+    <div class="toc-title">Contents</div>
+    <div class="toc-grid">
+      <div class="toc-item"><span class="toc-num">00</span><a href="#preserve">What Does NOT Change</a></div>
+      <div class="toc-item"><span class="toc-num">01</span><a href="#colors">Color Palette</a></div>
+      <div class="toc-item"><span class="toc-num">02</span><a href="#typography">Typography</a></div>
+      <div class="toc-item"><span class="toc-num">03</span><a href="#hero">HeroSection</a></div>
+      <div class="toc-item"><span class="toc-num">04</span><a href="#lettermask">LetterMaskSection ★</a></div>
+      <div class="toc-item"><span class="toc-num">05</span><a href="#marquee">MarqueeStrip ★</a></div>
+      <div class="toc-item"><span class="toc-num">06</span><a href="#editorial">AntiAgencySection → Light</a></div>
+      <div class="toc-item"><span class="toc-num">07</span><a href="#services">ServicesSection → Poster Grid</a></div>
+      <div class="toc-item"><span class="toc-num">08</span><a href="#work">WorkSection → Horizontal Reel</a></div>
+      <div class="toc-item"><span class="toc-num">09</span><a href="#navbar">Navbar</a></div>
+      <div class="toc-item"><span class="toc-num">10</span><a href="#pagetransition">PageTransition ★</a></div>
+      <div class="toc-item"><span class="toc-num">11</span><a href="#composition">Page Composition</a></div>
+      <div class="toc-item"><span class="toc-num">12</span><a href="#orbs">Ambient Orbs</a></div>
+      <div class="toc-item"><span class="toc-num">13</span><a href="#bgonly">Remaining BG Updates</a></div>
+    </div>
+  </div>
+
+  <!-- 00 Preserve -->
+  <div class="section">
+    <span class="section-anchor" id="preserve"></span>
+    <h2><span class="h2-num">00</span> What Does NOT Change</h2>
+    <ul class="preserve-list">
+      <li>All metadata — <code>layout.tsx</code> SEO fields, OG tags, Twitter cards</li>
+      <li><code>sitemap.ts</code>, <code>robots.ts</code></li>
+      <li><code>CustomCursor</code> component</li>
+      <li><code>animations/index.tsx</code> — TextReveal, FadeInUp, StaggerContainer, MagneticButton, AnimatedCounter, etc.</li>
+      <li><code>Footer</code> layout and content</li>
+      <li><code>LeadForm</code> / Formspree integration</li>
+      <li>All service, blog, work, about, contact, FAQ pages</li>
+      <li>EB Garamond stays as display font</li>
+    </ul>
+  </div>
+
+  <!-- 01 Colors -->
+  <div class="section">
+    <span class="section-anchor" id="colors"></span>
+    <h2><span class="h2-num">01</span> Color Palette — globals.css</h2>
+    <table class="color-table">
+      <thead><tr><th>Token</th><th>Old</th><th>New</th></tr></thead>
+      <tbody>
+        <tr><td><code>--color-bg-primary</code></td><td><span class="swatch" style="background:#080808"></span>#080808</td><td><span class="arrow">→</span><span class="swatch" style="background:#0D1117"></span>#0D1117</td></tr>
+        <tr><td><code>--color-bg-secondary</code></td><td><span class="swatch" style="background:#0E0E0E"></span>#0E0E0E</td><td><span class="arrow">→</span><span class="swatch" style="background:#111827"></span>#111827</td></tr>
+        <tr><td><code>--color-bg-elevated</code></td><td><span class="swatch" style="background:#161616"></span>#161616</td><td><span class="arrow">→</span><span class="swatch" style="background:#1C2333"></span>#1C2333</td></tr>
+        <tr><td><code>--color-accent</code></td><td><span class="swatch" style="background:#FFFFFF"></span>#FFFFFF</td><td><span class="arrow">→</span><span class="swatch" style="background:#E8433F"></span>#E8433F</td></tr>
+        <tr><td><code>--color-text-primary</code></td><td><span class="swatch" style="background:#FFFFFF"></span>#FFFFFF</td><td><span class="arrow">→</span><span class="swatch" style="background:#F5F5F0"></span>#F5F5F0</td></tr>
+        <tr><td><code>--color-text-secondary</code></td><td><span class="swatch" style="background:#888888"></span>#888888</td><td><span class="arrow">→</span><span class="swatch" style="background:#9BA3AF"></span>#9BA3AF</td></tr>
+        <tr><td><code>--color-text-muted</code></td><td><span class="swatch" style="background:#444444"></span>#444444</td><td><span class="arrow">→</span><span class="swatch" style="background:#4B5563"></span>#4B5563</td></tr>
+        <tr><td><code>--color-border</code></td><td><span class="swatch" style="background:#1F1F1F"></span>#1F1F1F</td><td><span class="arrow">→</span><span class="swatch" style="background:#1F2937"></span>#1F2937</td></tr>
+        <tr><td><code>--color-gold</code> <span class="new-badge">NEW</span></td><td>—</td><td><span class="swatch" style="background:#C9A84C"></span>#C9A84C</td></tr>
+        <tr><td><code>--color-border-light</code> <span class="new-badge">NEW</span></td><td>—</td><td><span class="swatch" style="background:#374151"></span>#374151</td></tr>
+      </tbody>
+    </table>
+    <br>
+    <ul class="change-list">
+      <li>Add <code>orb-drift</code> keyframes (12–16s translate + scale, for ambient orbs)</li>
+      <li>Update <code>.section-label</code> color: <code>#555555</code> → <code>#C9A84C</code> (gold)</li>
+      <li>Update <code>html</code> / <code>body</code> background: <code>#080808</code> → <code>#0D1117</code></li>
+    </ul>
+  </div>
+
+  <!-- 02 Typography -->
+  <div class="section">
+    <span class="section-anchor" id="typography"></span>
+    <h2><span class="h2-num">02</span> Typography — layout.tsx</h2>
+    <ul class="change-list">
+      <li>Keep EB Garamond as <code>--font-display</code></li>
+      <li>Switch body font: Geist → <strong style="color:#F5F5F0">DM Sans</strong> via <code>next/font/google</code></li>
+      <li>Remove <code>@import</code> Google Fonts URL from globals.css</li>
+      <li>Add <code>PageProgressBar</code> to <code>RootLayout</code></li>
+    </ul>
+  </div>
+
+  <!-- 03 Hero -->
+  <div class="section">
+    <span class="section-anchor" id="hero"></span>
+    <h2><span class="h2-num">03</span> HeroSection — full rewrite</h2>
+    <div class="filepath">src/components/home/HeroSection.tsx</div>
+    <ul class="change-list">
+      <li>Video opacity: <code>0.28</code> → <code>0.55</code></li>
+      <li>Add left-side gradient fade (text pop), keep bottom fade</li>
+      <li>Badge: white dot → gold dot, label text → gold</li>
+      <li>CTAs: sharp rectangles → pill buttons (<code>rounded-full</code>)</li>
+      <li>Scroll indicator: ArrowDown bottom-right → pulsing vertical line bottom-center</li>
+      <li>Add filmstrip: 3 thumbnail videos bottom-right (desktop only)</li>
+      <li>Add 20 floating particle dots (CSS <code>float</code> animation)</li>
+      <li>Add ambient orbs: 1 red + 1 teal blob (<code>orb-drift</code>)</li>
+      <li>Remove CRT scanlines</li>
+      <li>Remove corner frame brackets</li>
+    </ul>
+  </div>
+
+  <!-- 04 LetterMask -->
+  <div class="section">
+    <span class="section-anchor" id="lettermask"></span>
+    <h2><span class="h2-num">04</span> LetterMaskSection &nbsp;<span class="new-section-badge">New</span></h2>
+    <div class="filepath">src/components/home/LetterMaskSection.tsx</div>
+    <ul class="change-list">
+      <li>Light background <code>#F5F4F0</code> — dramatic contrast with surrounding dark sections</li>
+      <li>Giant "ZYRA" in EB Garamond 900, <code>clamp(80px, 18vw, 200px)</code>, color = bg color</li>
+      <li>Video behind text fills full container</li>
+      <li><code>mix-blend-mode: multiply</code> on text → video shows THROUGH the letters</li>
+      <li>Scroll-driven: scale 0.85→1, opacity 0→1→1→0 via Framer Motion useScroll</li>
+      <li>Tagline below: "AI Content Studio — India"</li>
+    </ul>
+  </div>
+
+  <!-- 05 Marquee -->
+  <div class="section">
+    <span class="section-anchor" id="marquee"></span>
+    <h2><span class="h2-num">05</span> MarqueeStrip &nbsp;<span class="new-section-badge">New</span></h2>
+    <div class="filepath">src/components/home/MarqueeStrip.tsx</div>
+    <ul class="change-list">
+      <li>Background <code>#0D1117</code>, bordered top + bottom</li>
+      <li>Items: AI Brand Films · Micro Dramas · Performance Creatives · Social Content · India · OTT Quality · AI Native</li>
+      <li>Red dot separator between items</li>
+      <li>Uses existing <code>animate-marquee</code> from globals.css (seamless via doubled array)</li>
+      <li>Used twice in page — once after Hero, once after LetterMask</li>
+    </ul>
+  </div>
+
+  <!-- 06 Editorial -->
+  <div class="section">
+    <span class="section-anchor" id="editorial"></span>
+    <h2><span class="h2-num">06</span> AntiAgencySection → Editorial (light)</h2>
+    <div class="filepath">src/components/home/AntiAgencySection.tsx — filename &amp; export unchanged</div>
+    <ul class="change-list">
+      <li>Background: dark <code>#0E0E0E</code> → light <code>#F5F4F0</code></li>
+      <li>Headings → <code>#0D1117</code>, body text → <code>#4B5563</code></li>
+      <li>Stats numbers → <code>#0D1117</code>, units → <code>#E8433F</code> red, labels → <code>#9BA3AF</code></li>
+      <li>Divider line → <code>#E5E7EB</code></li>
+      <li>Remove <code>grain</code> class</li>
+      <li>Layout (2-column split) unchanged</li>
+    </ul>
+  </div>
+
+  <!-- 07 Services -->
+  <div class="section">
+    <span class="section-anchor" id="services"></span>
+    <h2><span class="h2-num">07</span> ServicesSection → Poster Grid</h2>
+    <div class="filepath">src/components/home/ServicesSection.tsx — filename &amp; export unchanged</div>
+    <ul class="change-list">
+      <li>Cards: bordered 2×2 → 4 portrait poster cards (<code>aspect-ratio: 2/3</code>)</li>
+      <li>Video always autoPlay at 40% opacity, rises to 90% on hover</li>
+      <li>No card borders — edge-to-edge grid with <code>gap-3</code></li>
+      <li>Text overlaid at bottom via absolute + gradient</li>
+      <li>Gold tag label top-left, monospace number (<code>01</code>–<code>04</code>) above title</li>
+      <li>Italic muted subtitle, red arrow on hover</li>
+      <li>Grid: <code>grid-cols-4</code> / <code>grid-cols-2</code> / <code>grid-cols-1</code></li>
+      <li>Header copy: "Four Studios. One Roof."</li>
+    </ul>
+  </div>
+
+  <!-- 08 Work -->
+  <div class="section">
+    <span class="section-anchor" id="work"></span>
+    <h2><span class="h2-num">08</span> WorkSection → Horizontal Reel</h2>
+    <div class="filepath">src/components/home/WorkSection.tsx — filename &amp; export unchanged</div>
+    <ul class="change-list">
+      <li>Bento grid → horizontal scroll driven by vertical scroll</li>
+      <li>Framer Motion <code>useScroll</code> + <code>useTransform</code>: x from <code>5%</code> → <code>-25%</code></li>
+      <li>Cards: <code>clamp(280px, 35vw, 480px)</code> wide, <code>16/9</code> ratio, <code>flex-shrink-0</code></li>
+      <li>Video autoPlay at 75%, rises to 100% on hover</li>
+      <li>Category in gold, client in muted, metric in red</li>
+      <li>Still uses existing <code>PROJECTS</code> from dummy-content.ts</li>
+    </ul>
+  </div>
+
+  <!-- 09 Navbar -->
+  <div class="section">
+    <span class="section-anchor" id="navbar"></span>
+    <h2><span class="h2-num">09</span> Navbar</h2>
+    <div class="filepath">src/components/Navbar.tsx</div>
+    <ul class="change-list">
+      <li>CTA button: sharp rectangle → pill (<code>rounded-full</code>)</li>
+      <li>Nav links: text scramble effect on hover (<code>useTextScramble</code> hook)</li>
+      <li>Scrolled bg: <code>#080808/90</code> → <code>#0D1117/90</code></li>
+    </ul>
+  </div>
+
+  <!-- 10 PageTransition -->
+  <div class="section">
+    <span class="section-anchor" id="pagetransition"></span>
+    <h2><span class="h2-num">10</span> PageTransition + PageProgressBar &nbsp;<span class="new-section-badge">New</span></h2>
+    <div class="filepath">src/components/PageTransition.tsx</div>
+    <ul class="change-list">
+      <li><code>PageProgressBar</code>: fixed top, 2px red line, scaleX 0→1 on mount</li>
+      <li><code>PageTransition</code>: opacity + y fade for all page transitions</li>
+      <li>Both wired into <code>layout.tsx</code></li>
+    </ul>
+  </div>
+
+  <!-- 11 Composition -->
+  <div class="section">
+    <span class="section-anchor" id="composition"></span>
+    <h2><span class="h2-num">11</span> Homepage Composition — page.tsx</h2>
+    <div class="copy-block">
+&lt;HeroSection /&gt;             <span style="color:#4B5563">// dark</span><br>
+&lt;MarqueeStrip /&gt;            <span style="color:#4B5563">// dark, scrolling text</span><br>
+&lt;LetterMaskSection /&gt;       <span style="color:#C9A84C">// LIGHT — ZYRA letter wow</span><br>
+&lt;MarqueeStrip /&gt;            <span style="color:#4B5563">// dark</span><br>
+&lt;AntiAgencySection /&gt;       <span style="color:#C9A84C">// LIGHT — "not an agency"</span><br>
+&lt;ServicesSection /&gt;         <span style="color:#4B5563">// dark — poster grid</span><br>
+&lt;WorkSection /&gt;             <span style="color:#4B5563">// dark — horizontal reel</span><br>
+&lt;StatsSection /&gt;            <span style="color:#4B5563">// mid dark</span><br>
+&lt;TestimonialsSection /&gt;     <span style="color:#4B5563">// dark</span><br>
+&lt;BlogSection /&gt;             <span style="color:#C9A84C">// LIGHT — editorial</span><br>
+&lt;CTASection /&gt;              <span style="color:#4B5563">// warm dark</span>
+    </div>
+  </div>
+
+  <!-- 12 Orbs -->
+  <div class="section">
+    <span class="section-anchor" id="orbs"></span>
+    <h2><span class="h2-num">12</span> Ambient Orbs — globals.css</h2>
+    <ul class="change-list">
+      <li>Red orb: 600px circle, <code>rgba(232,67,63,0.12)</code>, blur 40px, <code>orb-drift 12s</code></li>
+      <li>Teal orb: 400px circle, <code>rgba(45,212,191,0.08)</code>, blur 60px, <code>orb-drift 16s alternate-reverse</code></li>
+      <li>Both placed in HeroSection background layer</li>
+    </ul>
+  </div>
+
+  <!-- 13 BG only -->
+  <div class="section">
+    <span class="section-anchor" id="bgonly"></span>
+    <h2><span class="h2-num">13</span> Remaining BG-Only Updates</h2>
+    <table class="rhythm-table">
+      <tr><td><code>StatsSection</code></td><td><span class="rhythm-swatch" style="background:#111827"></span><code>#111827</code></td><td><span class="tag-dark">mid dark</span></td></tr>
+      <tr><td><code>TestimonialsSection</code></td><td><span class="rhythm-swatch" style="background:#0D1117"></span><code>#0D1117</code></td><td><span class="tag-dark">no change</span></td></tr>
+      <tr><td><code>BlogSection</code></td><td><span class="rhythm-swatch" style="background:#F5F4F0; border-color:#d4d4d4"></span><code>#F5F4F0</code></td><td><span class="tag-light">LIGHT</span></td></tr>
+      <tr><td><code>CTASection</code></td><td><span class="rhythm-swatch" style="background:#161410"></span><code>#161410</code></td><td><span class="tag-dark">warm dark</span></td></tr>
+      <tr><td><code>Footer</code></td><td><span class="rhythm-swatch" style="background:#0A0C12"></span><code>#0A0C12</code></td><td><span class="tag-dark">deepest</span></td></tr>
+    </table>
+    <br>
+    <div class="assets-note">
+      <strong style="color:#F5F5F0">Assets:</strong> All videos remain the existing Google CDN URLs from <code>dummy-content.ts</code>. No new files needed. Filmstrip thumbnails + LetterMask use existing showreel / brandFilm URLs.
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

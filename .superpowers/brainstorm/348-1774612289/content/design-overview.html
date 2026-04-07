@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zyra V2 — Design Overview</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=EB+Garamond:ital,wght@0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #0D1117; color: #F5F5F0; font-family: 'DM Sans', sans-serif; }
+
+h1 { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #9BA3AF; text-align: center; padding: 28px 0 8px; }
+.subtitle { font-size: 12px; color: #4B5563; text-align: center; margin-bottom: 32px; font-family: 'DM Sans', sans-serif; }
+
+/* ── SPLIT COMPARISON ── */
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin: 0 24px 40px; }
+.panel-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500; margin-bottom: 12px; padding: 0 4px; }
+.v1-label { color: #4B5563; }
+.v2-label { color: #C9A84C; }
+
+/* ── HERO MOCKUPS ── */
+.hero-mock { position: relative; height: 320px; overflow: hidden; border: 1px solid #1F2937; }
+.hero-mock-v1 { background: linear-gradient(135deg, #080808 0%, #111 100%); }
+.hero-mock-v2 { background: linear-gradient(135deg, #0D1117 0%, #111827 100%); }
+
+.video-overlay-v1 { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(8,8,8,0.4) 0%, rgba(8,8,8,0.15) 40%, rgba(8,8,8,0.7) 100%); }
+.video-overlay-v2 { position: absolute; inset: 0; background: linear-gradient(to top, #0D1117 0%, rgba(13,17,23,0.6) 50%, transparent 100%); }
+
+/* Fake video grain */
+.grain-sim { position: absolute; inset: 0; opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+.hero-content { position: absolute; bottom: 0; left: 0; right: 0; padding: 24px 28px; }
+.hero-badge { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+.badge-dot { width: 5px; height: 5px; border-radius: 50%; }
+.badge-dot-v1 { background: #444; }
+.badge-dot-v2 { background: #C9A84C; }
+.badge-text { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; }
+.badge-text-v1 { color: rgba(255,255,255,0.25); font-family: 'DM Sans', sans-serif; }
+.badge-text-v2 { color: #C9A84C; font-family: 'DM Sans', sans-serif; }
+
+.hero-title-v1 { font-family: 'EB Garamond', serif; font-size: 52px; font-weight: 700; line-height: 0.95; color: #fff; letter-spacing: -0.02em; margin-bottom: 12px; }
+.hero-title-v2 { font-family: 'Playfair Display', serif; font-size: 52px; font-weight: 700; line-height: 0.95; color: #F5F5F0; letter-spacing: -0.02em; margin-bottom: 12px; }
+.hero-title-v2 em { font-style: italic; font-weight: 400; }
+
+.hero-sub { font-family: 'DM Sans', sans-serif; font-size: 12px; line-height: 1.6; margin-bottom: 18px; max-width: 300px; }
+.hero-sub-v1 { color: rgba(255,255,255,0.4); }
+.hero-sub-v2 { color: #9BA3AF; }
+
+.ctas { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+
+/* V1 buttons — sharp rectangle */
+.btn-v1-primary { display: inline-flex; align-items: center; gap: 6px; background: #fff; color: #080808; font-family: 'DM Sans', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 9px 18px; }
+.btn-v1-secondary { display: inline-flex; align-items: center; gap: 6px; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.6); font-family: 'DM Sans', sans-serif; font-size: 9px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; padding: 9px 18px; }
+
+/* V2 buttons — pill */
+.btn-v2-primary { display: inline-flex; align-items: center; gap: 6px; background: #fff; color: #0D1117; font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 700; padding: 9px 20px; border-radius: 9999px; }
+.btn-v2-secondary { display: inline-flex; align-items: center; gap: 6px; border: 1px solid rgba(255,255,255,0.3); color: #fff; font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500; padding: 9px 20px; border-radius: 9999px; }
+
+/* Fake video bars in hero */
+.filmstrip { position: absolute; bottom: 24px; right: 20px; display: flex; gap: 6px; }
+.thumb { width: 52px; height: 34px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); border-radius: 2px; }
+
+/* ── VIDEO OPACITY COMPARISON ── */
+.opacity-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin: 0 24px 40px; }
+.op-block { height: 120px; position: relative; overflow: hidden; border: 1px solid #1F2937; display: flex; align-items: center; justify-content: center; }
+.op-video-sim { position: absolute; inset: 0; background: url('https://picsum.photos/seed/zyra1/600/300') center/cover; }
+.op-overlay { position: absolute; inset: 0; }
+
+/* ── SECTION RHYTHM ── */
+.rhythm { margin: 0 24px 40px; }
+.rhythm-row { display: flex; align-items: center; gap: 12px; margin-bottom: 4px; }
+.rhythm-block { height: 40px; flex: 1; display: flex; align-items: center; padding: 0 14px; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; }
+.rhythm-dark  { background: #0D1117; color: #4B5563; border: 1px solid #1F2937; }
+.rhythm-mid   { background: #111827; color: #4B5563; border: 1px solid #1F2937; }
+.rhythm-light { background: #F5F4F0; color: #9BA3AF; border: 1px solid #d4d4d4; }
+.rhythm-warm  { background: #161410; color: #4B5563; border: 1px solid #1F2937; }
+.rhythm-deep  { background: #0A0C12; color: #4B5563; border: 1px solid #1F2937; }
+.rhythm-label { font-size: 10px; color: #4B5563; width: 140px; flex-shrink: 0; }
+
+/* ── LETTER MASK PREVIEW ── */
+.letter-mask-section { margin: 0 24px 40px; }
+.letter-mask-demo { background: #F5F4F0; padding: 40px 28px; text-align: center; border: 1px solid #e5e5e5; position: relative; overflow: hidden; }
+.letter-mask-text { font-family: 'Playfair Display', serif; font-size: clamp(72px, 12vw, 140px); font-weight: 900; line-height: 1; letter-spacing: -0.02em; position: relative; display: inline-block; }
+.letter-mask-text-blend { color: #F5F4F0; mix-blend-mode: multiply; position: relative; z-index: 2; }
+.letter-mask-video-bg { position: absolute; inset: 0; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 30%, #0f3460 60%, #533483 100%); }
+.letter-mask-tagline { font-family: 'DM Sans', sans-serif; font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: #9BA3AF; margin-top: 12px; }
+
+/* ── SERVICES GRID PREVIEW ── */
+.services-section { margin: 0 24px 40px; }
+.services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+.service-card { position: relative; overflow: hidden; aspect-ratio: 2/3; background: #111827; }
+.service-card-img { position: absolute; inset: 0; background-size: cover; background-position: center; }
+.service-card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(13,17,23,0.95) 0%, rgba(13,17,23,0.2) 50%, transparent 100%); }
+.service-card-content { position: absolute; bottom: 0; left: 0; right: 0; padding: 14px; }
+.service-card-tag { font-size: 8px; letter-spacing: 0.2em; text-transform: uppercase; color: #C9A84C; display: block; margin-bottom: 4px; }
+.service-card-title { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700; color: #fff; line-height: 1.2; }
+.service-card-sub { font-family: 'Playfair Display', serif; font-size: 13px; font-style: italic; font-weight: 400; color: #9BA3AF; }
+
+.section-divider { border: none; border-top: 1px solid #1F2937; margin: 8px 24px 32px; }
+.section-title { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #4B5563; padding: 0 24px; margin-bottom: 16px; font-family: 'DM Sans', sans-serif; font-weight: 600; }
+
+/* Colors swatch row */
+.swatches { display: flex; gap: 4px; margin: 0 24px 32px; flex-wrap: wrap; }
+.swatch { height: 40px; flex: 1; min-width: 60px; display: flex; align-items: flex-end; padding: 4px 8px; font-size: 9px; font-family: 'DM Sans', sans-serif; border: 1px solid rgba(255,255,255,0.05); }
+</style>
+</head>
+<body>
+
+<h1>Zyra Redesign V2 — Overview</h1>
+<p class="subtitle">Visual summary of all changes from V1 → V2. Review each section below.</p>
+
+<!-- ── 1. COLOR PALETTE ── -->
+<p class="section-title">1 — Color Palette (V2)</p>
+<div class="swatches">
+  <div class="swatch" style="background:#0D1117; color:#4B5563">#0D1117<br>bg-primary</div>
+  <div class="swatch" style="background:#111827; color:#4B5563">#111827<br>bg-secondary</div>
+  <div class="swatch" style="background:#1C2333; color:#4B5563">#1C2333<br>bg-elevated</div>
+  <div class="swatch" style="background:#161410; color:#4B5563">#161410<br>bg-warm</div>
+  <div class="swatch" style="background:#E8433F; color:#fff">#E8433F<br>accent</div>
+  <div class="swatch" style="background:#C9A84C; color:#0D1117">#C9A84C<br>gold</div>
+  <div class="swatch" style="background:#F5F5F0; color:#0D1117">#F5F5F0<br>text-primary</div>
+  <div class="swatch" style="background:#9BA3AF; color:#0D1117">#9BA3AF<br>text-secondary</div>
+  <div class="swatch" style="background:#F5F4F0; color:#9BA3AF; border-color:#e5e5e5">#F5F4F0<br>light-bg</div>
+</div>
+
+<hr class="section-divider">
+
+<!-- ── 2. HERO COMPARISON ── -->
+<p class="section-title">2 — Hero Section: V1 vs V2</p>
+<div class="split">
+  <div>
+    <p class="panel-label v1-label">V1 — Current</p>
+    <div class="hero-mock hero-mock-v1">
+      <div class="grain-sim"></div>
+      <div class="video-overlay-v1"></div>
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="badge-dot badge-dot-v1"></span>
+          <span class="badge-text badge-text-v1">AI Content Studio — India</span>
+        </div>
+        <div class="hero-title-v1">Where AI<br>meets cinema.</div>
+        <div class="hero-sub hero-sub-v1">Brand films. Micro dramas.<br>Performance creatives.</div>
+        <div class="ctas">
+          <span class="btn-v1-primary">▶ See Our Work</span>
+          <span class="btn-v1-secondary">Start a Project</span>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:10px;color:#4B5563;padding:8px 4px;font-family:'DM Sans',sans-serif">
+      EB Garamond · #080808 bg · 28% video opacity · Sharp rect buttons · White badge dot
+    </p>
+  </div>
+  <div>
+    <p class="panel-label v2-label">V2 — Redesign</p>
+    <div class="hero-mock hero-mock-v2">
+      <div class="grain-sim"></div>
+      <div class="video-overlay-v2"></div>
+      <div class="filmstrip">
+        <div class="thumb"></div>
+        <div class="thumb"></div>
+        <div class="thumb"></div>
+      </div>
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="badge-dot badge-dot-v2"></span>
+          <span class="badge-text badge-text-v2">India's AI Content Studio</span>
+        </div>
+        <div class="hero-title-v2">Where <em>AI</em> Meets<br>Cinematic Storytelling</div>
+        <div class="hero-sub hero-sub-v2">Brand films. Micro dramas.<br>OTT-level quality at the speed of culture.</div>
+        <div class="ctas">
+          <span class="btn-v2-primary">▶ See Our Work</span>
+          <span class="btn-v2-secondary">Start a Project →</span>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:10px;color:#C9A84C;padding:8px 4px;font-family:'DM Sans',sans-serif">
+      Playfair Display · #0D1117 bg · 55% video opacity · Pill buttons · Gold badge dot · Filmstrip thumbnails
+    </p>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- ── 3. VIDEO OPACITY ── -->
+<p class="section-title">3 — Video Opacity: 28% vs 55%</p>
+<div class="opacity-compare">
+  <div>
+    <p class="panel-label v1-label" style="padding:0 0 8px 4px">V1 — 28% opacity</p>
+    <div class="op-block">
+      <div class="op-video-sim"></div>
+      <div class="op-overlay" style="background:rgba(8,8,8,0.72)"></div>
+      <span style="position:relative;z-index:2;font-size:11px;color:#9BA3AF;font-family:'DM Sans',sans-serif">Video barely visible</span>
+    </div>
+  </div>
+  <div>
+    <p class="panel-label v2-label" style="padding:0 0 8px 4px">V2 — 55% opacity</p>
+    <div class="op-block">
+      <div class="op-video-sim"></div>
+      <div class="op-overlay" style="background:rgba(13,17,23,0.45)"></div>
+      <span style="position:relative;z-index:2;font-size:11px;color:#F5F5F0;font-family:'DM Sans',sans-serif">Video clearly visible</span>
+    </div>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- ── 4. ZYRA LETTER MASK ── -->
+<p class="section-title">4 — New: ZYRA Letter-Mask Section (CSS mix-blend-mode)</p>
+<div class="letter-mask-section">
+  <div class="letter-mask-demo">
+    <div class="letter-mask-video-bg"></div>
+    <div class="letter-mask-text letter-mask-text-blend">ZYRA</div>
+    <p class="letter-mask-tagline">AI Content Studio — India</p>
+  </div>
+  <p style="font-size:10px;color:#4B5563;padding:8px 4px;font-family:'DM Sans',sans-serif">
+    Light background (#F5F4F0). Giant "ZYRA" text in same color as bg, mix-blend-mode:multiply → video/gradient shows THROUGH the letters. Dramatic wow-moment between Hero and Services.
+  </p>
+</div>
+
+<hr class="section-divider">
+
+<!-- ── 5. SERVICES GRID ── -->
+<p class="section-title">5 — Services Grid: 2×2 Cards → 4 Cinematic Poster Cards (PhantomX style)</p>
+<div class="services-section">
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-card-img" style="background-image:url('https://picsum.photos/seed/s1/300/450')"></div>
+      <div class="service-card-overlay"></div>
+      <div class="service-card-content">
+        <span class="service-card-tag">OTT-Level Production</span>
+        <div class="service-card-title">AI Brand Films<br><span class="service-card-sub">& Commercials</span></div>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-card-img" style="background-image:url('https://picsum.photos/seed/s2/300/450')"></div>
+      <div class="service-card-overlay"></div>
+      <div class="service-card-content">
+        <span class="service-card-tag">Episodic Storytelling</span>
+        <div class="service-card-title">Micro Drama<br><span class="service-card-sub">Production</span></div>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-card-img" style="background-image:url('https://picsum.photos/seed/s3/300/450')"></div>
+      <div class="service-card-overlay"></div>
+      <div class="service-card-content">
+        <span class="service-card-tag">50+ Variants / Campaign</span>
+        <div class="service-card-title">Performance<br><span class="service-card-sub">Creatives</span></div>
+      </div>
+    </div>
+    <div class="service-card">
+      <div class="service-card-img" style="background-image:url('https://picsum.photos/seed/s4/300/450')"></div>
+      <div class="service-card-overlay"></div>
+      <div class="service-card-content">
+        <span class="service-card-tag">20+ Pieces / Week</span>
+        <div class="service-card-title">Social Media<br><span class="service-card-sub">Content Engine</span></div>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:10px;color:#4B5563;padding:8px 4px;font-family:'DM Sans',sans-serif">
+    Portrait poster ratio (2:3). Video plays on hover. Title + tag overlaid on bottom. Gold label. Scale on hover.
+  </p>
+</div>
+
+<hr class="section-divider">
+
+<!-- ── 6. PAGE RHYTHM ── -->
+<p class="section-title">6 — Page Rhythm: Dark ↔ Light alternation</p>
+<div class="rhythm">
+  <div class="rhythm-row"><div class="rhythm-label" style="font-size:10px;color:#4B5563;font-family:'DM Sans',sans-serif">HeroSection</div><div class="rhythm-block rhythm-dark">Dark #0D1117 — cinematic video</div></div>
+  <div class="rhythm-row"><div class="rhythm-label" style="font-size:10px;color:#4B5563;font-family:'DM Sans',sans-serif">MarqueeStrip</div><div class="rhythm-block rhythm-dark">Dark #0D1117 — moving text</div></div>
+  <div class="rhythm-row"><div class="rhythm-label" style="font-size:10px;color:#C9A84C;font-family:'DM Sans',sans-serif">LetterMaskSection ★</div><div class="rhythm-block rhythm-light" style="color:#9BA3AF">Light #F5F4F0 — ZYRA wow moment</div></div>
+  <div class="rhythm-row"><div class="rhythm-label" style="font-size:10px;color:#C9A84C;font-family:'DM Sans',sans-serif">EditorialSection ★</div><div class="rhythm-block rhythm-light" style="color:#9BA3AF">Light #F5F4F0 — "Not an agency"</div></div>
+  <div class="rhythm-row"><div class="rhythm-label" style="font-size:10px;color:#4B5563;font-family:'DM Sans',sans-serif">ServicesGrid</div><div class="rhythm-block rhythm-dark">Dark #0D1117 — poster cards</div></div>
+  <div class="rhythm-row"><div class="rhythm-label" style="font-size:10px;color:#4B5563;font-family:'DM Sans',sans-serif">WorkReel</div><div class="rhythm-block rhythm-dark">Dark #0D1117 — horizontal scroll</div></div>
+  <div class="rhythm-row"><div class="rhythm-label" style="font-size:10px;color:#4B5563;font-family:'DM Sans',sans-serif">StatsSection</div><div class="rhythm-block rhythm-mid">Mid #111827 — counters</div></div>
+  <div class="rhythm-row"><div class="rhythm-label" style="font-size:10px;color:#4B5563;font-family:'DM Sans',sans-serif">Testimonials</div><div class="rhythm-block rhythm-dark">Dark #0D1117</div></div>
+  <div class="rhythm-row"><div class="rhythm-label" style="font-size:10px;color:#C9A84C;font-family:'DM Sans',sans-serif">BlogSection ★</div><div class="rhythm-block rhythm-light" style="color:#9BA3AF">Light #F5F4F0 — editorial</div></div>
+  <div class="rhythm-row"><div class="rhythm-label" style="font-size:10px;color:#4B5563;font-family:'DM Sans',sans-serif">CTASection</div><div class="rhythm-block rhythm-warm">Warm dark #161410 — closing</div></div>
+  <div class="rhythm-row"><div class="rhythm-label" style="font-size:10px;color:#4B5563;font-family:'DM Sans',sans-serif">Footer</div><div class="rhythm-block rhythm-deep">Deepest #0A0C12</div></div>
+  <p style="font-size:10px;color:#4B5563;padding:8px 4px;font-family:'DM Sans',sans-serif">
+    ★ = New sections. Dark → Light → Dark rhythm stops the page feeling like a black hole.
+  </p>
+</div>
+
+<hr class="section-divider">
+
+<!-- ── 7. TYPOGRAPHY ── -->
+<p class="section-title">7 — Typography: EB Garamond (V1) vs Playfair Display (V2)</p>
+<div class="split" style="margin-bottom:16px">
+  <div style="background:#0D1117;border:1px solid #1F2937;padding:24px 20px">
+    <p style="font-size:9px;color:#4B5563;letter-spacing:0.15em;text-transform:uppercase;font-family:'DM Sans',sans-serif;margin-bottom:12px">V1 — EB Garamond</p>
+    <p style="font-family:'EB Garamond',serif;font-size:40px;font-weight:700;color:#fff;line-height:0.95;letter-spacing:-0.02em;margin-bottom:8px">Where AI<br>meets cinema.</p>
+    <p style="font-family:'EB Garamond',serif;font-size:16px;font-style:italic;color:rgba(255,255,255,0.4);line-height:1.5">Brand films. Micro dramas.<br>Performance creatives.</p>
+  </div>
+  <div style="background:#0D1117;border:1px solid #1F2937;padding:24px 20px">
+    <p style="font-size:9px;color:#C9A84C;letter-spacing:0.15em;text-transform:uppercase;font-family:'DM Sans',sans-serif;margin-bottom:12px">V2 — Playfair Display</p>
+    <p style="font-family:'Playfair Display',serif;font-size:40px;font-weight:700;color:#F5F5F0;line-height:0.95;letter-spacing:-0.02em;margin-bottom:8px">Where <em style="font-weight:400;font-style:italic">AI</em> Meets<br>Cinematic Storytelling</p>
+    <p style="font-family:'DM Sans',sans-serif;font-size:13px;color:#9BA3AF;line-height:1.6">Brand films. Micro dramas.<br>OTT-level quality at the speed of culture.</p>
+  </div>
+</div>
+<p style="font-size:10px;color:#4B5563;padding:0 24px 40px;font-family:'DM Sans',sans-serif">
+  Both are editorial serifs — EB Garamond is slightly more classical/literary; Playfair Display is bolder/more dramatic. The spec calls for Playfair Display + DM Sans (body). If you prefer to keep EB Garamond, that's valid too.
+</p>
+
+</body>
+</html>
