@@ -77,7 +77,7 @@ export function Navbar() {
 
           {/* Center — ZYRA logo */}
           <Link href="/" className="absolute left-1/2 -translate-x-1/2">
-            <Image src="/zyra-logo.webp" alt="Zyra" width={110} height={40} style={{ objectFit: 'contain' }} priority />
+            <Image src="/zyra-logo.webp" alt="Zyra" width={150} height={54} style={{ objectFit: 'contain' }} priority />
           </Link>
 
           {/* Right — balance spacer */}
@@ -124,7 +124,7 @@ export function Navbar() {
                 }}
               >
                 <Link href="/" onClick={() => setMenuOpen(false)}>
-                  <Image src="/zyra-logo.webp" alt="Zyra" width={90} height={32} style={{ objectFit: 'contain' }} />
+                  <Image src="/zyra-logo.webp" alt="Zyra" width={120} height={44} style={{ objectFit: 'contain' }} />
                 </Link>
 
                 <button
