@@ -11,6 +11,7 @@ const PARTNERS = [
     label: 'Strategic Partner',
     name: 'PRAG India',
     shortName: 'PRAG',
+    image: '/partner-prag.png',
     description:
       'PRAG India (Public Relations and Advocacy Group) is a team of highly professional and skilled individuals dedicated to provide you with an entire spectrum of services related to public relations and brand management.',
     accent: '#1a1a1a',
@@ -21,6 +22,7 @@ const PARTNERS = [
     label: 'Content Partner',
     name: 'Nandi Pictures',
     shortName: 'Nandi',
+    image: '/partner-nandi.png',
     description:
       'Nandi Pictures — An OTT Platform whose mission is to make Jain wisdom, culture, and devotion accessible to today\'s generation in a simple, modern format.',
     accent: '#111111',
@@ -31,6 +33,7 @@ const PARTNERS = [
     label: 'Technology Partner',
     name: 'ByteDance',
     shortName: 'Byte',
+    image: '/partner-bytedance.png',
     description:
       'ByteDance — We are partners of ByteDance, creating content for their ecosystem by leveraging the latest versions of their Seedance and Seedream models.',
     accent: '#0d0d0d',
@@ -227,20 +230,6 @@ function PartnerPanel({
           >
             {partner.label}
           </span>
-          <span
-            style={{
-              display: 'block',
-              fontFamily: "'DM Sans', sans-serif",
-              fontSize: '10px',
-              letterSpacing: '0.22em',
-              textTransform: 'uppercase',
-              color: 'rgba(8,8,8,0.35)',
-              marginBottom: '28px',
-            }}
-          >
-            Partner {partner.index}
-          </span>
-
           <h2
             style={{
               fontFamily: "'DM Sans', sans-serif",
@@ -281,24 +270,22 @@ function PartnerPanel({
             justifyContent: 'center',
           }}
         >
-          {/* Large ghost name watermark */}
-          <span
-            aria-hidden
+          {/* Partner logo */}
+          <div
             style={{
-              fontFamily: "'EB Garamond', Georgia, serif",
-              fontSize: 'clamp(100px, 16vw, 220px)',
-              fontWeight: 800,
-              color: 'transparent',
-              WebkitTextStroke: '1px rgba(255,255,255,0.07)',
-              letterSpacing: '-0.04em',
-              lineHeight: 1,
-              userSelect: 'none',
-              whiteSpace: 'nowrap',
-              pointerEvents: 'none',
+              position: 'relative',
+              width: 'clamp(180px, 28vw, 360px)',
+              height: 'clamp(90px, 14vw, 180px)',
             }}
           >
-            {partner.shortName}
-          </span>
+            <Image
+              src={partner.image}
+              alt={partner.name}
+              fill
+              style={{ objectFit: 'contain' }}
+              sizes="(max-width: 768px) 180px, 28vw"
+            />
+          </div>
 
           {/* Index number */}
           <span
