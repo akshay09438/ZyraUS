@@ -43,7 +43,7 @@ export default function PartnersPage() {
     <div className="bg-[#080808] text-white min-h-screen overflow-x-hidden antialiased">
 
       {/* ── Hero ──────────────────────────────────────────────────── */}
-      <section className="relative w-full h-[55vh] min-h-[380px] flex items-center justify-center overflow-hidden">
+      <section className="relative w-full h-[80vh] min-h-[520px] flex items-center justify-center overflow-hidden">
         <Image
           src="/partners-hero.webp"
           alt="Our Partners"
@@ -133,13 +133,13 @@ export default function PartnersPage() {
           transition={{ duration: 1.0, delay: 0.08, ease: EASE }}
           style={{
             fontFamily: "'EB Garamond', Georgia, serif",
-            fontSize: 'clamp(40px, 5.5vw, 86px)',
+            fontSize: 'clamp(28px, 3.2vw, 52px)',
             fontWeight: 700,
             color: '#F5F5F0',
-            letterSpacing: '-0.03em',
-            lineHeight: 0.95,
+            letterSpacing: '-0.02em',
+            lineHeight: 1.05,
             textTransform: 'uppercase',
-            maxWidth: '700px',
+            maxWidth: '600px',
           }}
         >
           Partners Who<br />Shape What We Build.
@@ -184,6 +184,7 @@ function PartnerPanel({
       style={{
         position: 'sticky',
         top: 0,
+        minHeight: '100vh',
         height: '100vh',
         zIndex: index + 1,
         backgroundColor: '#080808',
