@@ -265,27 +265,16 @@ function PartnerPanel({
             position: 'relative',
             overflow: 'hidden',
             backgroundColor: partner.accent,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
           }}
         >
-          {/* Partner logo */}
-          <div
-            style={{
-              position: 'relative',
-              width: 'clamp(180px, 28vw, 360px)',
-              height: 'clamp(90px, 14vw, 180px)',
-            }}
-          >
-            <Image
-              src={partner.image}
-              alt={partner.name}
-              fill
-              style={{ objectFit: 'contain' }}
-              sizes="(max-width: 768px) 180px, 28vw"
-            />
-          </div>
+          {/* Partner logo — fills the panel */}
+          <Image
+            src={partner.image}
+            alt={partner.name}
+            fill
+            style={{ objectFit: 'cover' }}
+            sizes="50vw"
+          />
 
           {/* Index number */}
           <span
