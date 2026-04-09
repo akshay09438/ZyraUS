@@ -541,6 +541,249 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* ══════════════════════════════════════════════════════════════
+          SECTION 6 — ADVISORS
+      ══════════════════════════════════════════════════════════════ */}
+      <section className="w-full bg-[#080808] overflow-hidden">
+        <div style={{ textAlign: 'center', padding: 'clamp(60px, 8vw, 100px) clamp(32px, 6vw, 100px) clamp(48px, 6vw, 72px)' }}>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: EASE }}
+            style={{
+              fontFamily: "'EB Garamond', Georgia, serif",
+              fontSize: 'clamp(48px, 7vw, 100px)',
+              fontWeight: 400,
+              color: '#fff',
+              lineHeight: 1.05,
+              letterSpacing: '-0.02em',
+              textTransform: 'uppercase',
+              margin: 0,
+              marginBottom: '16px',
+            }}
+          >
+            Advisors
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.15, ease: EASE }}
+            style={{
+              fontFamily: "'EB Garamond', Georgia, serif",
+              fontSize: 'clamp(1.1rem, 1.8vw, 1.6rem)',
+              fontWeight: 400,
+              fontStyle: 'italic',
+              color: 'rgba(255,255,255,0.35)',
+              letterSpacing: '-0.01em',
+              lineHeight: 1.4,
+              margin: 0,
+            }}
+          >
+            Seasoned experts guiding our vision
+          </motion.p>
+        </div>
+
+        {/* Advisor row */}
+        <div style={{ padding: '0 clamp(32px, 6vw, 100px) clamp(80px, 10vw, 120px)' }}>
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.5, ease: EASE }}
+            style={{
+              position: 'relative',
+              display: 'grid',
+              gridTemplateColumns: isMobile ? '1fr' : '1fr clamp(260px, 34vw, 460px)',
+              gap: isMobile ? 'clamp(24px, 6vw, 40px)' : 'clamp(40px, 6vw, 88px)',
+              alignItems: 'stretch',
+              minHeight: isMobile ? 'unset' : 'clamp(520px, 60vw, 700px)',
+              paddingTop: 'clamp(40px, 8vw, 100px)',
+              paddingBottom: 'clamp(40px, 8vw, 100px)',
+              borderBottom: '1px solid rgba(255,255,255,0.05)',
+            }}
+          >
+            {/* Ghost watermark */}
+            <motion.span
+              aria-hidden
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, delay: 0.1, ease: EASE }}
+              style={{
+                position: 'absolute',
+                top: '10px',
+                left: 0,
+                fontFamily: "'EB Garamond', Georgia, serif",
+                fontSize: 'clamp(90px, 16vw, 200px)',
+                fontWeight: 700,
+                lineHeight: 1,
+                letterSpacing: '-0.04em',
+                color: 'transparent',
+                WebkitTextStroke: '1px rgba(255,255,255,0.045)',
+                pointerEvents: 'none',
+                userSelect: 'none',
+                whiteSpace: 'nowrap',
+                zIndex: 0,
+              }}
+            >
+              Rishabh
+            </motion.span>
+
+            {/* Text column */}
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', position: 'relative', zIndex: 1, gridColumn: 1, gridRow: isMobile ? 1 : 1 }}>
+              <motion.span
+                initial={{ opacity: 0, x: -12 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, ease: EASE }}
+                style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '10px', letterSpacing: '0.32em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.18)', marginBottom: '22px', display: 'block' }}
+              >
+                01 / 01
+              </motion.span>
+
+              <motion.h3
+                initial={{ opacity: 0, y: 22 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.75, delay: 0.1, ease: EASE }}
+                style={{
+                  fontFamily: "'EB Garamond', Georgia, serif",
+                  fontSize: 'clamp(2.6rem, 4.2vw, 5.2rem)',
+                  fontWeight: 700,
+                  color: '#ffffff',
+                  letterSpacing: '-0.025em',
+                  lineHeight: 1.02,
+                  margin: 0,
+                  marginBottom: '12px',
+                }}
+              >
+                Rishabh Kumar S
+              </motion.h3>
+
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2, ease: EASE }}
+                style={{
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontSize: '11px',
+                  fontWeight: 600,
+                  color: 'rgba(245,244,240,0.45)',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.24em',
+                  margin: 0,
+                  marginBottom: '32px',
+                }}
+              >
+                Strategic Advisor
+              </motion.p>
+
+              <motion.div
+                initial={{ width: 0 }}
+                whileInView={{ width: '40px' }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.28, ease: 'easeOut' }}
+                style={{ height: '1px', backgroundColor: 'rgba(255,255,255,0.18)', marginBottom: '28px', flexShrink: 0 }}
+              />
+
+              <motion.p
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.75, delay: 0.32, ease: EASE }}
+                style={{
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontSize: 'clamp(13px, 1.05vw, 15px)',
+                  fontWeight: 300,
+                  color: 'rgba(255,255,255,0.4)',
+                  lineHeight: 1.9,
+                  margin: 0,
+                  marginBottom: '36px',
+                  maxWidth: '480px',
+                }}
+              >
+                Rishabh Kumar Sawansukha is a distinguished expert with 25 years of multifaceted
+                experience across various Fortune 100 companies, Maharatna PSUs, global MNCs, Unicorn
+                startups, multi state cooperatives, and NGOs. Renowned for his strategic acumen in{' '}
+                <em>Mergers &amp; Acquisitions (M&amp;A)</em> and deal-making, Rishabh has successfully navigated
+                complex transactions, delivering transformative outcomes that drive topline growth,
+                profitability, and sustainable value creation.
+              </motion.p>
+
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                {['M&A Strategy', 'Deal-Making', 'Fortune 100', 'Value Creation'].map((tag, j) => (
+                  <motion.span
+                    key={tag}
+                    initial={{ opacity: 0, y: 8, scale: 0.95 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: 0.4 + j * 0.07, ease: EASE }}
+                    style={{
+                      fontFamily: "'DM Sans', sans-serif",
+                      fontSize: '10px',
+                      fontWeight: 500,
+                      color: 'rgba(245,244,240,0.32)',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.15em',
+                      padding: '6px 14px',
+                      border: '1px solid rgba(255,255,255,0.09)',
+                      borderRadius: '9999px',
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    {tag}
+                  </motion.span>
+                ))}
+              </div>
+            </div>
+
+            {/* Photo column */}
+            <motion.div
+              initial={{ opacity: 0, y: 32, scale: 0.97 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.9, delay: 0.15, ease: EASE }}
+              style={{
+                position: 'relative',
+                borderRadius: '18px',
+                overflow: 'hidden',
+                zIndex: 1,
+                gridColumn: isMobile ? 1 : 2,
+                gridRow: isMobile ? 2 : 1,
+                minHeight: isMobile ? '280px' : undefined,
+                cursor: 'default',
+              }}
+              className="group"
+            >
+              <Image
+                src="/team/rishabh-kumar.webp"
+                alt="Rishabh Kumar Sawansukha"
+                fill
+                sizes="(max-width: 768px) 90vw, 34vw"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                style={{ objectPosition: 'top' }}
+              />
+              <div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                style={{ background: 'linear-gradient(to top, rgba(8,8,8,0.88) 0%, rgba(8,8,8,0.2) 45%, transparent 70%)' }}
+              />
+              <div className="absolute bottom-0 left-0 right-0 p-7 translate-y-3 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '9px', fontWeight: 600, color: 'rgba(245,244,240,0.5)', textTransform: 'uppercase', letterSpacing: '0.25em', marginBottom: '6px' }}>
+                  Strategic Advisor
+                </p>
+                <p style={{ fontFamily: "'EB Garamond', Georgia, serif", fontSize: '1.6rem', fontWeight: 500, color: '#fff', letterSpacing: '-0.01em', lineHeight: 1 }}>
+                  Rishabh Kumar S
+                </p>
+              </div>
+              <div className="absolute inset-0 pointer-events-none" style={{ borderRadius: '18px', border: '1px solid rgba(255,255,255,0.07)' }} />
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
       <CTASection />
     </div>
   )

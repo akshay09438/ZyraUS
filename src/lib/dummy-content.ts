@@ -118,6 +118,7 @@ export const CLIENTS = [
 export const NAV_LINKS = [
   { label: 'Work',     href: '/work' },
   { label: 'Services', href: '/services' },
+  { label: 'Partners', href: '/partners' },
   { label: 'About',    href: '/about' },
   { label: 'Blog',     href: '/blog' },
 ]
