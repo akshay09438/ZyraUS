@@ -43,7 +43,7 @@ export default function PartnersPage() {
     <div className="bg-[#080808] text-white antialiased">
 
       {/* ── Hero ──────────────────────────────────────────────────── */}
-      <section className="relative w-full h-[80vh] min-h-[520px] flex items-center justify-center overflow-hidden">
+      <section className="relative w-full h-screen flex items-center justify-center overflow-hidden">
         <Image
           src="/partners-hero.webp"
           alt="Our Partners"
@@ -51,7 +51,7 @@ export default function PartnersPage() {
           className="object-cover object-center"
           priority
         />
-        <div className="absolute inset-0 bg-black/65" />
+        <div className="absolute inset-0 bg-black/35" />
         <div
           className="absolute inset-x-0 bottom-0 h-32"
           style={{ background: 'linear-gradient(to bottom, transparent, #080808)' }}
