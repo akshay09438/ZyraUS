@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useEffect } from 'react'
-import { DUMMY_VIDEOS } from '@/lib/dummy-content'
+import { LazyCFIframe } from '@/components/ui/LazyCFIframe'
 
 /**
  * Combined ZYRA + Manifesto scroll sequence.
@@ -52,7 +52,7 @@ export function ZyraManifestoSection() {
     }
   }, [])
 
-  const videoSrc = DUMMY_VIDEOS.zyraLogo
+  const CF_LOGO_ID = '211c8fbfbd0cdae0bd9edb40def1afa6'
 
   return (
     <section
@@ -89,13 +89,13 @@ export function ZyraManifestoSection() {
           <p
             style={{
               fontFamily: "'DM Sans', sans-serif",
-              fontSize: 'clamp(27px, 3.9vw, 63px)',
+              fontSize: 'clamp(18px, 3.9vw, 63px)',
               color: '#080808',
               lineHeight: 1.4,
               fontWeight: 400,
               letterSpacing: '-0.01em',
               textAlign: 'center',
-              whiteSpace: 'nowrap',
+              whiteSpace: 'normal',
             }}
           >
             An entertainment studio built for the GenAI era,<br />
@@ -131,21 +131,22 @@ export function ZyraManifestoSection() {
           }}
         >
           {/* Video-in-text: video behind SVG mask with letter-shaped holes */}
-          <div style={{ width: '100%', position: 'relative' }}>
-            {/* Video behind the SVG */}
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              src={videoSrc}
+          <div style={{ width: '100%', position: 'relative', overflow: 'hidden' }}>
+            {/* Video behind the SVG — CF iframe scaled to fill the 1000:320 SVG area */}
+            {/* SVG is ~3.125:1, video is 16:9 (1.778:1). To fill by width: height = 175.8% */}
+            <LazyCFIframe
+              lazySrc={`https://customer-rphzzo1xs9tbitpo.cloudflarestream.com/${CF_LOGO_ID}/iframe?autoplay=true&muted=true&loop=true&controls=false&preload=metadata`}
               style={{
                 position: 'absolute',
-                inset: 0,
+                top: '50%',
+                left: '50%',
                 width: '100%',
-                height: '100%',
-                objectFit: 'cover',
+                height: '176%',
+                transform: 'translate(-50%, -50%)',
+                border: 'none',
+                pointerEvents: 'none',
               }}
+              allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
             />
 
             {/*

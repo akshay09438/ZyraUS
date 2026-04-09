@@ -31,7 +31,7 @@ export function Navbar() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1, delay: 0.1, ease: EASE_OUT_EXPO }}
       >
-        <div className="px-8 md:px-12 h-[80px] flex items-center justify-between">
+        <div className="px-4 md:px-8 lg:px-12 h-[64px] md:h-[80px] flex items-center justify-between">
 
           {/* Left — MENU trigger */}
           <button
@@ -115,7 +115,7 @@ export function Navbar() {
             <motion.div
               className="fixed top-0 left-0 bottom-0 z-50 flex flex-col"
               style={{
-                width: 'clamp(320px, 48vw, 680px)',
+                width: 'clamp(280px, 100vw, 680px)',
                 backgroundColor: '#080808',
               }}
               initial={{ x: '-100%' }}
@@ -126,7 +126,7 @@ export function Navbar() {
               {/* Top row: ZYRA logo + close */}
               <div
                 style={{
-                  height: '80px',
+                  height: 'clamp(64px, 10vw, 80px)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',

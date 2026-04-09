@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { CTASection } from '@/components/home/CTASection'
@@ -78,8 +78,20 @@ const TEAM = [
 
 const EASE = [0.16, 1, 0.3, 1] as [number, number, number, number]
 
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false)
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
+  return isMobile
+}
+
 // ── Page ────────────────────────────────────────────────────────────────────
 export default function AboutPage() {
+  const isMobile = useIsMobile()
 
   return (
     <div className="bg-[#080808] text-white min-h-screen font-sans overflow-x-hidden antialiased">
@@ -185,7 +197,7 @@ export default function AboutPage() {
       <section className="w-full border-t border-b border-white/[0.06]">
         {/* Stats grid */}
         <div className="max-w-7xl mx-auto px-8 mb-0">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)' }}>
+          <div className="grid grid-cols-1 sm:grid-cols-3">
             {[
               { value: '100+',   label: 'Brands Served' },
               { value: '1 Year', label: 'Studio Age' },
@@ -305,13 +317,14 @@ export default function AboutPage() {
             const widePhoto = (member as { widePhoto?: boolean }).widePhoto === true
             const photoPosition = (member as { photoPosition?: string }).photoPosition ?? 'center'
             const FIXED = 'clamp(260px, 34vw, 460px)'
-            // narrow mode: text gets 1fr (wide), photo gets fixed
-            // wide mode:   text gets fixed, photo gets 1fr (wide)
-            const gridTemplateColumns = photoLeft
+            const desktopCols = photoLeft
               ? (widePhoto ? `${FIXED} 1fr` : `1fr ${FIXED}`)
               : (widePhoto ? `1fr ${FIXED}` : `${FIXED} 1fr`)
-            const textGridCol = photoLeft ? 1 : 2
-            const photoGridCol = photoLeft ? 2 : 1
+            const gridTemplateColumns = isMobile ? '1fr' : desktopCols
+            const textGridCol = isMobile ? 1 : (photoLeft ? 1 : 2)
+            const photoGridCol = isMobile ? 1 : (photoLeft ? 2 : 1)
+            const textGridRow = isMobile ? 1 : 1
+            const photoGridRow = isMobile ? 2 : 1
             return (
               <motion.div
                 key={member.name}
@@ -323,11 +336,11 @@ export default function AboutPage() {
                   position: 'relative',
                   display: 'grid',
                   gridTemplateColumns,
-                  gap: 'clamp(40px, 6vw, 88px)',
+                  gap: isMobile ? 'clamp(24px, 6vw, 40px)' : 'clamp(40px, 6vw, 88px)',
                   alignItems: 'stretch',
-                  minHeight: 'clamp(520px, 60vw, 700px)',
-                  paddingTop: 'clamp(60px, 8vw, 100px)',
-                  paddingBottom: 'clamp(60px, 8vw, 100px)',
+                  minHeight: isMobile ? 'unset' : 'clamp(520px, 60vw, 700px)',
+                  paddingTop: 'clamp(40px, 8vw, 100px)',
+                  paddingBottom: 'clamp(40px, 8vw, 100px)',
                   borderBottom: '1px solid rgba(255,255,255,0.05)',
                 }}
               >
@@ -367,7 +380,7 @@ export default function AboutPage() {
                     position: 'relative',
                     zIndex: 1,
                     gridColumn: textGridCol,
-                    gridRow: 1,
+                    gridRow: textGridRow,
                   }}
                 >
                   {/* Index */}
@@ -490,7 +503,8 @@ export default function AboutPage() {
                     overflow: 'hidden',
                     zIndex: 1,
                     gridColumn: photoGridCol,
-                    gridRow: 1,
+                    gridRow: photoGridRow,
+                    minHeight: isMobile ? '280px' : undefined,
                     cursor: 'default',
                   }}
                   className="group"

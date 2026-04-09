@@ -194,14 +194,13 @@ function WorkShowcase({ service }: { service: ServiceData }) {
           </div>
 
           {/* Cards — film contact sheet */}
-          <div className="flex gap-[3px]" style={{ height: '580px' }}>
+          <div className="flex flex-col md:flex-row gap-1 md:gap-[3px] md:h-[580px]">
 
-            {/* Featured — 58% wide, full height, title always visible */}
+            {/* Featured — 58% wide on desktop, full width on mobile */}
             {featured && (
               <Link
                 href={`/work/${featured.slug}`}
-                className="group relative overflow-hidden cursor-pointer"
-                style={{ flex: '0 0 58%' }}
+                className="group relative overflow-hidden cursor-pointer block aspect-video md:aspect-auto md:[flex:0_0_58%]"
               >
                 <Image
                   src={featured.poster}
@@ -246,14 +245,14 @@ function WorkShowcase({ service }: { service: ServiceData }) {
               </Link>
             )}
 
-            {/* Right column — 2 stacked cards */}
+            {/* Right column — 2 stacked cards on desktop, side by side on mobile */}
             {rest.length > 0 && (
-              <div className="flex flex-col gap-[3px] flex-1">
+              <div className="flex flex-row md:flex-col gap-1 md:gap-[3px] md:flex-1">
                 {rest.map((project, i) => (
                   <Link
                     key={project.slug}
                     href={`/work/${project.slug}`}
-                    className="group relative overflow-hidden flex-1 cursor-pointer"
+                    className="group relative overflow-hidden flex-1 cursor-pointer block aspect-video md:aspect-auto"
                   >
                     <Image
                       src={project.poster}

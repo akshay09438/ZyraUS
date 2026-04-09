@@ -20,8 +20,8 @@ export function Footer() {
   return (
     <footer className="bg-bg-secondary border-t border-white/[0.05]">
       <div className="max-w-7xl mx-auto px-6 md:px-10 py-16 md:py-20">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8">
-          <div className="md:col-span-1">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-10 md:gap-8">
+          <div className="col-span-2 lg:col-span-1">
             <Link href="/" className="flex flex-col mb-6">
               <span className="font-display font-bold text-2xl text-white tracking-[-0.02em] leading-none">ZYRA</span>
               <span className="font-body text-white/25 leading-none mt-1"

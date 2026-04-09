@@ -1,27 +1,33 @@
 'use client'
 
-import { useRef } from 'react'
 import { motion } from 'framer-motion'
-import { DUMMY_VIDEOS } from '@/lib/dummy-content'
+
+const CF_BASE = 'https://customer-rphzzo1xs9tbitpo.cloudflarestream.com'
+const HERO_STREAM_ID = 'a652979718c22bb94b19f626e3a62720'
 
 export function HeroSection() {
-  const videoRef = useRef<HTMLVideoElement>(null)
-
   return (
     <section
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
       style={{ backgroundColor: '#080808' }}
     >
-      {/* Background video */}
-      <video
-        ref={videoRef}
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover"
-        style={{ opacity: 0.85 }}
-        src={DUMMY_VIDEOS.showreel}
+      {/* Background video — Cloudflare Stream */}
+      <iframe
+        src={`${CF_BASE}/${HERO_STREAM_ID}/iframe?autoplay=true&muted=true&loop=true&controls=false&preload=true`}
+        style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          width: '177.78vh',
+          minWidth: '100%',
+          height: '56.25vw',
+          minHeight: '100%',
+          transform: 'translate(-50%, -50%)',
+          border: 'none',
+          opacity: 0.85,
+          pointerEvents: 'none',
+        }}
+        allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
       />
 
       {/* Uniform dark overlay */}

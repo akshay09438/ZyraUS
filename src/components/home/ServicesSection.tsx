@@ -43,15 +43,24 @@ function ServiceCard({
       onMouseLeave={() => setHovered(false)}
     >
       {/* Background video */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        src={service.video}
-        className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
-        style={{ opacity: hovered ? 1 : 0.6 }}
-      />
+      {service.cfStream ? (
+        <iframe
+          src={`https://customer-rphzzo1xs9tbitpo.cloudflarestream.com/${service.cfStream}/iframe?autoplay=true&muted=true&loop=true&controls=false&preload=true`}
+          className="absolute inset-0 w-full h-full transition-opacity duration-500"
+          style={{ border: 'none', opacity: hovered ? 1 : 0.6, pointerEvents: 'none' }}
+          allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+        />
+      ) : (
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          src={service.video}
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
+          style={{ opacity: hovered ? 1 : 0.6 }}
+        />
+      )}
 
       {/* Dark overlay for text legibility */}
       <div

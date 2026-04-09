@@ -11,6 +11,7 @@ export interface WorkProject {
   vertical: boolean        // true = 9:16 grid thumbnail, false = 4:3 grid thumbnail
   playerVertical?: boolean // overrides vertical for the detail page video player only
   heroPoster?: string      // overrides poster for the detail page hero background only
+  cfStream?: string        // Cloudflare Stream video ID (preferred over local video)
 }
 
 export const ALL_PROJECTS: WorkProject[] = [
@@ -27,6 +28,7 @@ export const ALL_PROJECTS: WorkProject[] = [
     tags:     ['OTT', '24 Episodes', 'Spiritual'],
     brief:    '24 Tirthankaras: Ancient Wisdom from Daaji\'s Book',
     vertical: false,
+    cfStream: '1e09d5e68dd02a6c6ff1f71051fd4855',
   },
   {
     slug:     'kapil-muni',
@@ -39,6 +41,7 @@ export const ALL_PROJECTS: WorkProject[] = [
     tags:     ['OTT', '5 Episodes', 'Spiritual'],
     brief:    'Story of a muni when he went to an area guarded by goons.',
     vertical: false,
+    cfStream: '2781cd26fdcf6d8a83f909173cf917c1',
   },
   {
     slug:     'dharmruchi-angaar',
@@ -51,6 +54,7 @@ export const ALL_PROJECTS: WorkProject[] = [
     tags:     ['OTT', '5 Episodes', 'Spiritual'],
     brief:    'Story of a muni who sacrificed his life.',
     vertical: false,
+    cfStream: 'aa75b375be00df015e31fdbdf7e40a73',
   },
   {
     slug:     'ramayana',
@@ -63,21 +67,23 @@ export const ALL_PROJECTS: WorkProject[] = [
     tags:     ['OTT', 'Festival', 'Spiritual'],
     brief:    'Short film tribute to Ram Navami - joy, devotion, and storytelling.',
     vertical: false,
+    cfStream: '8834f79fa14cfd6eb0c1ec544b7d0e34',
   },
 
   // ── Brand Film ─────────────────────────────────────────────────
   {
-    slug:     'adani-ndtv',
-    client:   'Adani X NDTV',
-    title:    'FutureX Quiz Announcement',
-    category: 'Brand Film',
-    year:     '2025',
-    video:    '/videos/adani-ndtv.mp4',
-    poster:   '/posters/adani-ndtv.webp',
+    slug:       'adani-ndtv',
+    client:     'Adani X NDTV',
+    title:      'FutureX Quiz Announcement',
+    category:   'Brand Film',
+    year:       '2025',
+    video:      '/videos/adani-ndtv.mp4',
+    poster:     '/posters/adani-ndtv.webp',
     heroPoster: '/posters/adani-ndtv-hero.webp',
-    tags:     ['Brand Film', 'TV Commercial', '4K'],
-    brief:    'Adani X NDTV futureX quiz announcement TV video',
-    vertical: false,
+    tags:       ['Brand Film', 'TV Commercial', '4K'],
+    brief:      'Adani X NDTV futureX quiz announcement TV video',
+    vertical:   false,
+    cfStream:   'b72bcef661201b2de0afa5edd01c7db3',
   },
   {
     slug:     'meesho',
@@ -90,6 +96,7 @@ export const ALL_PROJECTS: WorkProject[] = [
     tags:     ['Brand Film', 'Regional', '4K'],
     brief:    'Animatics crafted for Meesho\'s South India region, set against a traditional South Indian backdrop.',
     vertical: false,
+    cfStream: '6a915f97456a3b7a1b363fe6e87ceab7',
   },
   {
     slug:     'jito',
@@ -102,6 +109,7 @@ export const ALL_PROJECTS: WorkProject[] = [
     tags:     ['Brand Film', 'Business', '4K'],
     brief:    'A video celebrating the members and spirit of the JITO Meetup community.',
     vertical: false,
+    cfStream: 'dbbae800596137218b933d0105cf7c5a',
   },
   {
     slug:     'swiggy',
@@ -114,6 +122,7 @@ export const ALL_PROJECTS: WorkProject[] = [
     tags:     ['Brand Film', 'Launch', '4K'],
     brief:    'A new product launch campaign introducing Swiggy Noice - bringing bold, youthful energy to the brand\'s latest offering.',
     vertical: false,
+    cfStream: '7fe1be5e9318f4bae80bf4ddcac39d25',
   },
   {
     slug:     'cars24',
@@ -126,6 +135,7 @@ export const ALL_PROJECTS: WorkProject[] = [
     tags:     ['Brand Film', 'Launch', '4K'],
     brief:    'An ad campaign for Cars24 spotlighting their 30-day return policy - building consumer trust and redefining confidence in second-hand car buying.',
     vertical: false,
+    cfStream: '466b01620c29279a0a63ee1e451fe59c',
   },
 
   // ── Micro Drama ────────────────────────────────────────────────
@@ -141,6 +151,7 @@ export const ALL_PROJECTS: WorkProject[] = [
     tags:       ['Micro Drama', 'Temple Story', '4K'],
     brief:      'A devotional content series on Maa Shakumbhari Devi - weaving spiritual storytelling with seamless integration of Madhusudan\'s products.',
     vertical:   true,
+    cfStream:   'ac46b166e20adfb6b0462145d06f4044',
   },
   {
     slug:       'vama',
@@ -154,6 +165,7 @@ export const ALL_PROJECTS: WorkProject[] = [
     tags:       ['Micro Drama', 'OTT', '4K'],
     brief:      'Created original micro dramas for VAMA App\'s newly launched feature, VAMA TV - blending sharp storytelling with platform-native content.',
     vertical:   true,
+    cfStream:   '83451e3dafac471452fa068ce85e6896',
   },
   {
     slug:       'vaishno-devi',
@@ -167,6 +179,7 @@ export const ALL_PROJECTS: WorkProject[] = [
     tags:       ['Micro Drama', 'Story', '4K'],
     brief:      'A sacred storytelling piece on Maa Vaishno Devi - capturing the divine journey, deep-rooted faith, and spiritual significance of one of India\'s most revered pilgrimages.',
     vertical:   true,
+    cfStream:   'd3e154fe3eb6b08a4760f24dffc7330e',
   },
   {
     slug:       'kedarnath',
@@ -180,6 +193,7 @@ export const ALL_PROJECTS: WorkProject[] = [
     tags:       ['Micro Drama', 'Story', '4K'],
     brief:      'A sacred story of Kedarnath Dham - bringing to life the mystical legacy, ancient devotion, and divine aura of one of the holiest Shiva shrines.',
     vertical:   true,
+    cfStream:   '7020a0f1039c9c610d2a2ac6b903b36f',
   },
 
   // ── Ad Creative ────────────────────────────────────────────────
@@ -195,6 +209,7 @@ export const ALL_PROJECTS: WorkProject[] = [
     tags:       ['Performance', 'International', '4K'],
     brief:      'A performance marketing ad crafted for Wildstone\'s entry into the US market - designed to drive conversions through bold, targeted creatives.',
     vertical:   true,
+    cfStream:   '416e9a651ab6e32a997a63167c5ef096',
   },
   {
     slug:           'wildstone-edge',
@@ -209,6 +224,7 @@ export const ALL_PROJECTS: WorkProject[] = [
     brief:          'A performance marketing ad crafted for Wildstone\'s entry into the US market - translating the brand\'s edge for an international audience.',
     vertical:        true,
     playerVertical:  false,
+    cfStream:        'bbd1702aedda2389ad0e9ae9e7e8f361',
   },
   {
     slug:       'rabitat',
@@ -222,6 +238,7 @@ export const ALL_PROJECTS: WorkProject[] = [
     tags:       ['Performance', 'Product', '4K'],
     brief:      'Extensive creation of performance marketing ads for Rabitat\'s bottle category - a high-volume creative suite built to test, optimise, and deliver results.',
     vertical:   true,
+    cfStream:   '36066418062700740ca08867814d58e1',
   },
   {
     slug:       'goodscore',
@@ -235,6 +252,7 @@ export const ALL_PROJECTS: WorkProject[] = [
     tags:       ['Performance', 'Product', '4K'],
     brief:      'Performance marketing videos for Goodscore App - conversion-focused, data-driven creatives that communicate the app\'s value proposition clearly.',
     vertical:   true,
+    cfStream:   'b1f7e94fee9ca28d6c94ef0f65b0215b',
   },
 
   // ── Social ─────────────────────────────────────────────────────
@@ -250,6 +268,7 @@ export const ALL_PROJECTS: WorkProject[] = [
     tags:       ['Social', 'Reels', '4K'],
     brief:      'Authentic, organic storytelling content for Kissansay\'s natural products - rooted in honesty, simplicity, and a deep respect for nature.',
     vertical:   true,
+    cfStream:   'fb2ec13f628715cc390884d2c21c471e',
   },
   {
     slug:       'bharat-ki-soch',
@@ -263,6 +282,7 @@ export const ALL_PROJECTS: WorkProject[] = [
     tags:       ['Social', 'Reels', '4K'],
     brief:      'Thought leadership content exploring India\'s civilisational ethos - sparking meaningful conversations around culture, heritage, and identity.',
     vertical:   true,
+    cfStream:   '38d25d2d4974f61f94c8ebfdd4933b1e',
   },
   {
     slug:       'inyou',
@@ -276,6 +296,7 @@ export const ALL_PROJECTS: WorkProject[] = [
     tags:       ['Social', 'Product', '4K'],
     brief:      'Product marketing videos for InYou - translating the brand\'s core essence into visually compelling narratives that connect and drive consumer intent.',
     vertical:   true,
+    cfStream:   '1c4159bc6fce242d637766f33c9dd43c',
   },
   {
     slug:       'mederma',
@@ -289,6 +310,7 @@ export const ALL_PROJECTS: WorkProject[] = [
     tags:       ['Social', 'UGC', '4K'],
     brief:      'Product marketing videos for Mederma - credible, benefit-led storytelling that builds brand trust while communicating product efficacy.',
     vertical:   true,
+    cfStream:   '53dbe3243e96592f9f09899f807a98de',
   },
   {
     slug:       'country-delight',
@@ -302,6 +324,7 @@ export const ALL_PROJECTS: WorkProject[] = [
     tags:       ['Social', 'Product', '4K'],
     brief:      'A heartwarming Children\'s Day campaign for Country Delight - celebrating the joy, curiosity, and wholesome spirit of childhood.',
     vertical:   true,
+    cfStream:   'dc10155ea4a6da6a8fdf4a97a6eed7a0',
   },
   {
     slug:       'revision-app',
@@ -315,6 +338,7 @@ export const ALL_PROJECTS: WorkProject[] = [
     tags:       ['Social', 'Lesson', '4K'],
     brief:      'Engaging geography teaching videos for an EdTech platform - transforming complex concepts into visually rich, immersive content for students.',
     vertical:   true,
+    cfStream:   '1789b86b944efc35e207364614492b76',
   },
 ]
 

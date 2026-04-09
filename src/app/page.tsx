@@ -1,9 +1,12 @@
+import dynamic from 'next/dynamic'
 import { HeroSection } from '@/components/home/HeroSection'
-import { LogoTicker } from '@/components/work/LogoTicker'
-import { ZyraManifestoSection } from '@/components/home/ZyraManifestoSection'
-import { FourStudiosSection } from '@/components/home/FourStudiosSection'
-import { WorkSection } from '@/components/home/WorkSection'
-import { GetInTouchSection } from '@/components/home/GetInTouchSection'
+
+// Below-fold sections: code-split so the initial JS bundle stays small
+const LogoTicker        = dynamic(() => import('@/components/work/LogoTicker').then(m => ({ default: m.LogoTicker })))
+const ZyraManifestoSection = dynamic(() => import('@/components/home/ZyraManifestoSection').then(m => ({ default: m.ZyraManifestoSection })))
+const FourStudiosSection   = dynamic(() => import('@/components/home/FourStudiosSection').then(m => ({ default: m.FourStudiosSection })))
+const WorkSection          = dynamic(() => import('@/components/home/WorkSection').then(m => ({ default: m.WorkSection })))
+const GetInTouchSection    = dynamic(() => import('@/components/home/GetInTouchSection').then(m => ({ default: m.GetInTouchSection })))
 
 
 export default function Home() {

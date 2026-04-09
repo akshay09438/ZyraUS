@@ -23,8 +23,8 @@ export function LogoTicker() {
     <section
       style={{
         background: '#080808',
-        paddingTop: '100px',
-        paddingBottom: '110px',
+        paddingTop: 'clamp(48px, 8vw, 100px)',
+        paddingBottom: 'clamp(48px, 8vw, 110px)',
         position: 'relative',
       }}
     >
@@ -111,14 +111,8 @@ export function LogoTicker() {
               <img
                 src={logo.src}
                 alt={logo.alt}
-                style={{
-                  height: '140px',
-                  width: 'auto',
-                  maxWidth: '300px',
-                  objectFit: 'contain',
-                  opacity: 0.85,
-                  mixBlendMode: 'screen',
-                }}
+                className="h-[60px] md:h-[100px] lg:h-[140px] w-auto max-w-[160px] md:max-w-[220px] lg:max-w-[300px] object-contain"
+                style={{ opacity: 0.85, mixBlendMode: 'screen' }}
               />
             </div>
           ))}
