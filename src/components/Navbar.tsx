@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { NAV_LINKS } from '@/lib/dummy-content'
 
@@ -76,19 +77,7 @@ export function Navbar() {
 
           {/* Center — ZYRA logo */}
           <Link href="/" className="absolute left-1/2 -translate-x-1/2">
-            <span
-              style={{
-                fontFamily: "'EB Garamond', Georgia, serif",
-                fontSize: 'clamp(28px, 3vw, 38px)',
-                fontWeight: 800,
-                letterSpacing: '-0.02em',
-                color: '#FFFFFF',
-                lineHeight: 1,
-                display: 'block',
-              }}
-            >
-              ZYRA
-            </span>
+            <Image src="/zyra-logo.webp" alt="Zyra" width={110} height={40} style={{ objectFit: 'contain' }} priority />
           </Link>
 
           {/* Right — balance spacer */}
@@ -135,18 +124,7 @@ export function Navbar() {
                 }}
               >
                 <Link href="/" onClick={() => setMenuOpen(false)}>
-                  <span
-                    style={{
-                      fontFamily: "'EB Garamond', Georgia, serif",
-                      fontSize: '28px',
-                      fontWeight: 800,
-                      letterSpacing: '-0.02em',
-                      color: '#FFFFFF',
-                      lineHeight: 1,
-                    }}
-                  >
-                    ZYRA
-                  </span>
+                  <Image src="/zyra-logo.webp" alt="Zyra" width={90} height={32} style={{ objectFit: 'contain' }} />
                 </Link>
 
                 <button
