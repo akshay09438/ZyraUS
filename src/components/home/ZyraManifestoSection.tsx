@@ -1,7 +1,18 @@
 'use client'
 
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import { LazyCFIframe } from '@/components/ui/LazyCFIframe'
+
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false)
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
+  return isMobile
+}
 
 /**
  * Combined ZYRA + Manifesto scroll sequence.
@@ -16,6 +27,7 @@ export function ZyraManifestoSection() {
   const sectionRef = useRef<HTMLElement>(null)
   const zyraRef    = useRef<HTMLDivElement>(null)
   const lineRef    = useRef<HTMLDivElement>(null)
+  const isMobile   = useIsMobile()
 
   useEffect(() => {
     const lerp    = (a: number, b: number, t: number) => a + (b - a) * t
@@ -33,8 +45,10 @@ export function ZyraManifestoSection() {
       const total    = section.offsetHeight - window.innerHeight
       const p        = clamp01(scrolled / total)
 
-      const scale   = lerp(1, 5.5, invlerp(0,    0.50, p))
-      const y       = lerp(0, -900, invlerp(0.15, 0.60, p))
+      const maxScale = window.innerWidth < 768 ? 3.5 : 5.5
+      const maxY     = window.innerWidth < 768 ? -400 : -900
+      const scale   = lerp(1, maxScale, invlerp(0,    0.50, p))
+      const y       = lerp(0, maxY,     invlerp(0.15, 0.60, p))
       const opacity = lerp(1, 0,   invlerp(0.28, 0.50, p))
 
       zyra.style.transform = `translateY(${y}px) scale(${scale})`
@@ -59,7 +73,7 @@ export function ZyraManifestoSection() {
       ref={sectionRef}
       style={{
         backgroundColor: '#F5F4F0',
-        height: '340vh',
+        height: isMobile ? '220vh' : '340vh',
         position: 'relative',
       }}
     >
@@ -110,7 +124,7 @@ export function ZyraManifestoSection() {
               width: '1.5px',
               height: '0px',
               backgroundColor: '#080808',
-              marginTop: 'clamp(48px, 7vh, 80px)',
+              marginTop: 'clamp(32px, 5vh, 80px)',
             }}
           />
         </div>

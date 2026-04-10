@@ -146,7 +146,7 @@ function StudioPanel({
         >
           {service.cfStream ? (
             <LazyCFIframe
-              lazySrc={`https://customer-rphzzo1xs9tbitpo.cloudflarestream.com/${service.cfStream}/iframe?autoplay=true&muted=true&loop=true&controls=false&preload=metadata`}
+              lazySrc={`https://customer-rphzzo1xs9tbitpo.cloudflarestream.com/${service.cfStream}/iframe?autoplay=true&muted=true&loop=true&controls=false&preload=metadata&poster=${encodeURIComponent(`https://customer-rphzzo1xs9tbitpo.cloudflarestream.com/${service.cfStream}/thumbnails/thumbnail.jpg?height=600`)}`}
               style={{
                 position: 'absolute',
                 top: '50%',

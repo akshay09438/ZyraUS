@@ -26,7 +26,7 @@ export function LazyCFIframe({ lazySrc, ...props }: LazyCFIframeProps) {
           observer.disconnect()
         }
       },
-      { rootMargin: '400px' }
+      { rootMargin: '1200px' }
     )
 
     observer.observe(el)
