@@ -27,12 +27,12 @@ export function Navbar() {
     <>
       <motion.nav
         className="fixed top-0 left-0 right-0 z-50"
-        style={{ backgroundColor: '#080808' }}
+        style={{ backgroundColor: 'rgba(8,8,8,0.75)', backdropFilter: 'blur(12px)' }}
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1, delay: 0.1, ease: EASE_OUT_EXPO }}
       >
-        <div className="px-4 md:px-8 lg:px-12 h-[64px] md:h-[80px] flex items-center justify-between">
+        <div className="px-4 md:px-8 lg:px-12 h-[48px] md:h-[58px] flex items-center justify-between">
 
           {/* Left — MENU trigger */}
           <button

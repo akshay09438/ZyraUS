@@ -131,7 +131,7 @@ export function ZyraManifestoSection() {
           }}
         >
           {/* Video-in-text: video behind SVG mask with letter-shaped holes */}
-          <div style={{ width: '100%', position: 'relative', overflow: 'hidden' }}>
+          <div style={{ width: '100%', position: 'relative', overflow: 'hidden', backgroundColor: '#F5F4F0' }}>
             {/* Video behind the SVG — CF iframe scaled to fill the 1000:320 SVG area */}
             {/* SVG is ~3.125:1, video is 16:9 (1.778:1). To fill by width: height = 175.8% */}
             <LazyCFIframe

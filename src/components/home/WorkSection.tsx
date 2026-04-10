@@ -120,7 +120,7 @@ const CF_BASE = 'https://customer-rphzzo1xs9tbitpo.cloudflarestream.com'
 function WorkCard({ project }: { project: (typeof PROJECTS)[number] }) {
   const [hovered, setHovered] = useState(false)
   const isPortrait = project.aspect === '9/16'
-  const cardWidth = isPortrait ? 'clamp(120px, 13vw, 200px)' : 'clamp(200px, 22vw, 340px)'
+  const cardWidth = 'clamp(220px, 23vw, 360px)'
 
   return (
     <Link
@@ -128,7 +128,7 @@ function WorkCard({ project }: { project: (typeof PROJECTS)[number] }) {
       className="relative flex-shrink-0 overflow-hidden block"
       style={{
         width: cardWidth,
-        aspectRatio: project.aspect ?? '16/9',
+        aspectRatio: '16/9',
         borderRadius: '4px',
         textDecoration: 'none',
       }}
@@ -138,7 +138,18 @@ function WorkCard({ project }: { project: (typeof PROJECTS)[number] }) {
       {project.cfStream ? (
         <LazyCFIframe
           lazySrc={`${CF_BASE}/${project.cfStream}/iframe?autoplay=true&muted=true&loop=true&controls=false&preload=metadata&poster=${encodeURIComponent(`${CF_BASE}/${project.cfStream}/thumbnails/thumbnail.jpg?height=600`)}`}
-          style={{
+          style={isPortrait ? {
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            width: '100%',
+            height: '316%',
+            transform: 'translate(-50%, -50%)',
+            border: 'none',
+            opacity: hovered ? 1 : 0.65,
+            transition: 'opacity 0.4s ease',
+            pointerEvents: 'none',
+          } : {
             position: 'absolute',
             inset: 0,
             width: '100%', height: '100%',
@@ -207,16 +218,25 @@ function WorkCard({ project }: { project: (typeof PROJECTS)[number] }) {
 
 /* ── Mobile card ───────────────────────────────────────────────── */
 function WorkCardMobile({ project }: { project: (typeof PROJECTS)[number] }) {
+  const isPortrait = project.aspect === '9/16'
   return (
     <Link
       href={`/work/${project.id}`}
       className="relative overflow-hidden block"
-      style={{ aspectRatio: project.aspect ?? '16/9', borderRadius: '4px', textDecoration: 'none' }}
+      style={{ aspectRatio: '16/9', borderRadius: '4px', textDecoration: 'none' }}
     >
       {project.cfStream ? (
         <LazyCFIframe
           lazySrc={`${CF_BASE}/${project.cfStream}/iframe?autoplay=true&muted=true&loop=true&controls=false&preload=metadata&poster=${encodeURIComponent(`${CF_BASE}/${project.cfStream}/thumbnails/thumbnail.jpg?height=600`)}`}
-          style={{
+          style={isPortrait ? {
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            width: '100%',
+            height: '316%',
+            transform: 'translate(-50%, -50%)',
+            border: 'none', opacity: 0.75, pointerEvents: 'none',
+          } : {
             position: 'absolute',
             inset: 0,
             width: '100%', height: '100%',
