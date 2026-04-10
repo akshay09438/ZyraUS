@@ -6,7 +6,7 @@ import { TESTIMONIALS, CLIENTS } from '@/lib/dummy-content'
 function TestimonialCard({ quote, name, title, company }: typeof TESTIMONIALS[number]) {
   return (
     <div
-      className="border flex flex-col gap-6 min-w-[320px] md:min-w-[460px] p-8 md:p-10"
+      className="border flex flex-col gap-4 md:gap-6 min-w-[280px] md:min-w-[460px] p-5 md:p-10"
       style={{ backgroundColor: '#FFFFFF', borderColor: '#E5E7EB' }}
     >
       {/* Large quotation — decorative */}
@@ -15,7 +15,7 @@ function TestimonialCard({ quote, name, title, company }: typeof TESTIMONIALS[nu
         &ldquo;
       </span>
 
-      <blockquote className="font-display italic text-[#4B5563] text-xl md:text-2xl leading-[1.5] flex-1">
+      <blockquote className="font-display italic text-[#4B5563] text-base md:text-2xl leading-[1.5] flex-1">
         {quote}
       </blockquote>
 
@@ -41,7 +41,7 @@ function ClientMarquee() {
   const doubled = [...CLIENTS, ...CLIENTS, ...CLIENTS]
 
   return (
-    <div className="overflow-hidden py-6 mt-16 border-t" style={{ borderColor: '#E5E7EB' }}>
+    <div className="overflow-hidden py-5 mt-10 md:mt-16 border-t" style={{ borderColor: '#E5E7EB' }}>
       <div className="flex items-center gap-16 w-max" style={{ animation: 'marquee 30s linear infinite' }}>
         {doubled.map((name, i) => (
           <span key={i}
@@ -56,9 +56,9 @@ function ClientMarquee() {
 
 export function TestimonialsSection() {
   return (
-    <section style={{ backgroundColor: '#F5F4F0' }} className="py-24 md:py-36 overflow-hidden">
+    <section style={{ backgroundColor: '#F5F4F0' }} className="py-16 md:py-36 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 md:px-10">
-        <FadeInUp className="mb-14">
+        <FadeInUp className="mb-10 md:mb-14">
           <span className="accent-line" />
           <span className="section-label block mb-5">What Clients Say</span>
           <h2 className="font-display font-bold tracking-[-0.02em] leading-[1.0]" style={{ fontSize: 'clamp(28px, 3.5vw, 56px)', color: '#0D1117' }}>

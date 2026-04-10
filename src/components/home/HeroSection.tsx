@@ -50,10 +50,10 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
-          className="text-[11px] tracking-[0.25em] uppercase mb-10"
+          className="text-[11px] tracking-[0.25em] uppercase mb-6 md:mb-10"
           style={{ color: 'rgba(255,255,255,0.85)', fontFamily: "'DM Sans', sans-serif", fontWeight: 600 }}
         >
-          AI Content Studio
+          India&rsquo;s AI Content Studio
         </motion.p>
 
         {/* Headline — elegant mixed italic serif */}
@@ -61,7 +61,7 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.1, ease: [0.4, 0, 0.2, 1] }}
-          className="font-display font-bold leading-[1.05] tracking-[-0.02em] mb-8"
+          className="font-display font-bold leading-[1.05] tracking-[-0.02em] mb-5 md:mb-8"
           style={{ fontSize: 'clamp(42px, 6.5vw, 96px)', color: '#F5F5F0' }}
         >
           Where AI meets{' '}
@@ -73,7 +73,7 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.25, ease: [0.4, 0, 0.2, 1] }}
-          className="text-base md:text-lg leading-relaxed mb-12 max-w-lg"
+          className="text-sm md:text-lg leading-relaxed mb-8 md:mb-12 max-w-xs md:max-w-lg"
           style={{ color: 'rgba(255,255,255,0.75)', fontFamily: "'DM Sans', sans-serif", fontWeight: 400 }}
         >
           From brand films to short films and micro drama, we make content that earns its screen time
@@ -84,11 +84,11 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.4, ease: [0.4, 0, 0.2, 1] }}
-          className="flex items-center gap-4"
+          className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 w-full sm:w-auto"
         >
           <a
             href="/work"
-            className="px-7 py-3 text-sm tracking-wide transition-all duration-300 hover:opacity-80"
+            className="px-7 py-3 text-sm tracking-wide transition-all duration-300 hover:opacity-80 w-full sm:w-auto text-center"
             style={{
               backgroundColor: '#F5F5F0',
               color: '#080808',
@@ -103,7 +103,7 @@ export function HeroSection() {
             href="https://calendly.com/marketersatzyra/30min"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-7 py-3 text-sm tracking-wide transition-all duration-300 hover:border-white/60"
+            className="px-7 py-3 text-sm tracking-wide transition-all duration-300 hover:border-white/60 w-full sm:w-auto text-center"
             style={{
               border: '1px solid rgba(255,255,255,0.2)',
               color: 'rgba(255,255,255,0.7)',

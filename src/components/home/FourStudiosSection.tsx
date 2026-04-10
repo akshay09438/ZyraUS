@@ -61,7 +61,7 @@ function StudioPanel({
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
-            padding: isMobile ? 'clamp(40px, 8vw, 60px) clamp(24px, 6vw, 48px)' : 'clamp(40px, 5vw, 80px)',
+            padding: isMobile ? 'clamp(28px, 6vw, 48px) clamp(20px, 5vw, 40px)' : 'clamp(40px, 5vw, 80px)',
             backgroundColor: '#FFFFFF',
             zIndex: 1,
           }}
@@ -97,7 +97,7 @@ function StudioPanel({
           <p
             style={{
               fontFamily: "'DM Sans', sans-serif",
-              fontSize: 'clamp(14px, 1.1vw, 18px)',
+              fontSize: isMobile ? '15px' : 'clamp(14px, 1.1vw, 18px)',
               fontWeight: 400,
               color: 'rgba(8,8,8,0.55)',
               lineHeight: 1.7,
@@ -138,8 +138,8 @@ function StudioPanel({
         {/* ── Video side ─────────────────────────────────────── */}
         <div
           style={{
-            flex: isMobile ? '0 0 45vw' : '0 0 50%',
-            minHeight: isMobile ? '45vw' : undefined,
+            flex: isMobile ? '0 0 58vw' : '0 0 50%',
+            minHeight: isMobile ? '58vw' : undefined,
             position: 'relative',
             overflow: 'hidden',
           }}
@@ -197,7 +197,7 @@ export function FourStudiosSection() {
       <div
         ref={headerRef}
         style={{
-          padding: 'clamp(80px, 10vh, 140px) clamp(32px, 6vw, 96px) clamp(60px, 7vh, 100px)',
+          padding: 'clamp(48px, 8vh, 140px) clamp(24px, 6vw, 96px) clamp(36px, 5vh, 100px)',
         }}
       >
         <motion.span

@@ -38,7 +38,7 @@ export function GetInTouchSection() {
             letterSpacing: '0.28em',
             textTransform: 'uppercase',
             color: 'rgba(8,8,8,0.3)',
-            marginBottom: '40px',
+            marginBottom: 'clamp(20px, 4vh, 40px)',
           }}
         >
           Ready to Create
@@ -51,7 +51,7 @@ export function GetInTouchSection() {
           transition={{ duration: 1.2, delay: 0.1, ease: EASE_OUT_EXPO }}
           style={{
             fontFamily: "'EB Garamond', Georgia, serif",
-            fontSize: 'clamp(52px, 8vw, 130px)',
+            fontSize: 'clamp(40px, 8vw, 130px)',
             fontWeight: 700,
             color: '#080808',
             letterSpacing: '-0.03em',
@@ -67,13 +67,13 @@ export function GetInTouchSection() {
           transition={{ duration: 1.2, delay: 0.18, ease: EASE_OUT_EXPO }}
           style={{
             fontFamily: "'EB Garamond', Georgia, serif",
-            fontSize: 'clamp(52px, 8vw, 130px)',
+            fontSize: 'clamp(40px, 8vw, 130px)',
             fontWeight: 700,
             fontStyle: 'italic',
             color: 'rgba(8,8,8,0.25)',
             letterSpacing: '-0.03em',
             lineHeight: 0.92,
-            marginBottom: '60px',
+            marginBottom: 'clamp(32px, 6vh, 60px)',
           }}
         >
           Touch.
@@ -86,7 +86,7 @@ export function GetInTouchSection() {
           transition={{ duration: 1, delay: 0.32, ease: EASE_OUT_EXPO }}
           style={{
             fontFamily: "'DM Sans', sans-serif",
-            fontSize: 'clamp(14px, 1.1vw, 17px)',
+            fontSize: 'clamp(14px, 2.5vw, 17px)',
             fontWeight: 300,
             color: 'rgba(8,8,8,0.45)',
             lineHeight: 1.7,
@@ -124,7 +124,7 @@ export function GetInTouchSection() {
               fontWeight: 600,
               letterSpacing: '0.2em',
               textTransform: 'uppercase',
-              padding: '18px 40px',
+              padding: 'clamp(14px, 2vh, 18px) clamp(24px, 4vw, 40px)',
               textDecoration: 'none',
               transition: 'opacity 0.3s ease',
             }}

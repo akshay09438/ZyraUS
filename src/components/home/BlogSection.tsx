@@ -35,9 +35,9 @@ const POSTS = [
 
 export function BlogSection() {
   return (
-    <section className="py-24 md:py-32" style={{ backgroundColor: '#F5F4F0' }}>
+    <section className="py-16 md:py-32" style={{ backgroundColor: '#F5F4F0' }}>
       <div className="max-w-7xl mx-auto px-6 md:px-10">
-        <FadeInUp className="mb-14 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+        <FadeInUp className="mb-8 md:mb-14 flex flex-col md:flex-row md:items-end md:justify-between gap-4 md:gap-6">
           <div>
             <span className="accent-line" />
             <span className="section-label block mb-4">From the Studio</span>
@@ -74,7 +74,7 @@ export function BlogSection() {
                 </div>
 
                 {/* Text content */}
-                <div className="p-6 flex flex-col gap-3 flex-1">
+                <div className="p-4 md:p-6 flex flex-col gap-3 flex-1">
                   <div className="flex items-center gap-3 font-body text-xs" style={{ color: '#9CA3AF' }}>
                     <span>{post.date}</span>
                     <span>·</span>

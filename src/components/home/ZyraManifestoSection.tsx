@@ -98,9 +98,9 @@ export function ZyraManifestoSection() {
               whiteSpace: 'normal',
             }}
           >
-            An entertainment studio built for the GenAI era,<br />
-            reimagining how visionary artists create films,<br />
-            series, and new forms of storytelling.
+            An entertainment studio built for the GenAI era,<br className="hidden md:block" />
+            {' '}reimagining how visionary artists create films,<br className="hidden md:block" />
+            {' '}series, and new forms of storytelling.
           </p>
 
           {/* Scroll-driven growing line */}
